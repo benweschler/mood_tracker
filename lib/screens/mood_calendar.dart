@@ -27,7 +27,7 @@ class MoodCalendar extends StatelessWidget {
       ),
       lastDay: DateTime.now(),
       onDaySelected: (selectedDay, _) {
-        if (context.read<MoodEntryModel>()[selectedDay] == null) return;
+        if (context.read<MoodEntryModel>().entryOn(selectedDay) == null) return;
         onDateTapped(selectedDay);
       },
       availableCalendarFormats: const {CalendarFormat.month: "Month"},
@@ -80,11 +80,12 @@ class MoodCalendar extends StatelessWidget {
   }
 
   Widget _cellBuilder(BuildContext context, DateTime day) {
-    final entry =
-        context.select<MoodEntryModel, MoodEntry?>((model) => model[day]);
     final content = Text("${day.day}", style: TextStyles.body);
+    final mood = context
+        .select<MoodEntryModel, MoodEntry?>((model) => model.entryOn(day))
+        ?.mood;
 
-    if (entry == null) return Center(child: content);
+    if (mood == null) return Center(child: content);
 
     final bool isSelected =
         context.select<DateTime?, bool>((selectedDay) => selectedDay == day);
@@ -99,7 +100,7 @@ class MoodCalendar extends StatelessWidget {
               color: AppColors.contrastColor,
               width: isSelected ? 2 : 1,
             ),
-            color: colorFromMood(entry.mood),
+            color: colorFromMood(mood),
             borderRadius: Corners.medBorderRadius,
           ),
           child: Center(

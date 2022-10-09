@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-class MoodEntry extends Equatable {
+class MoodEntry with EquatableMixin {
   final double mood;
   final double sleep;
   final String description;

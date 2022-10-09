@@ -15,6 +15,4 @@ class MoodEntryModel extends ChangeNotifier {
   MoodEntry? entryOn(DateTime day) {
     return _entryMap[day];
   }
-
-  operator [](DateTime key) => _entryMap[key];
 }
