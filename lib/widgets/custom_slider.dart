@@ -55,6 +55,8 @@ class _CustomSliderThemeData extends SliderThemeData {
   }) : super(
           trackHeight: trackHeight,
           activeTrackColor: trackColor,
+          activeTickMarkColor: Colors.transparent,
+          inactiveTickMarkColor: Colors.transparent,
           overlayShape: SliderComponentShape.noOverlay,
           thumbShape: thumbShape,
           trackShape: trackShape,
@@ -66,7 +68,15 @@ class _CustomSliderThemeData extends SliderThemeData {
 ///
 /// The height is set from [SliderThemeData.trackHeight] and the width of the
 /// parent box.
-class BaseSliderTrackShape {
+mixin _BaseSliderTrackShape {
+  /// Returns a rect that represents the track bounds that fits within the
+  /// [CustomSlider].
+  ///
+  /// The width is the width of the [CustomSlider]. The height is defined by the
+  /// [SliderThemeData.trackHeight].
+  ///
+  /// The [Rect] is centered both horizontally and vertically within the slider
+  /// bounds.
   Rect getPreferredRect({
     required RenderBox parentBox,
     Offset offset = Offset.zero,
@@ -93,8 +103,7 @@ class BaseSliderTrackShape {
   }
 }
 
-class _CustomSliderTrackShape extends SliderTrackShape
-    with BaseSliderTrackShape {
+class _CustomSliderTrackShape extends SliderTrackShape with _BaseSliderTrackShape {
   final Color strokeColor;
 
   const _CustomSliderTrackShape({required this.strokeColor});
