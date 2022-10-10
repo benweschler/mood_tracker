@@ -9,7 +9,7 @@ import 'package:table_calendar/table_calendar.dart';
 import '../data/mood_entry.dart';
 
 class MoodCalendar extends StatelessWidget {
-  final ValueChanged<DateTime?> onDateTapped;
+  final ValueChanged<DateTime> onDateTapped;
 
   const MoodCalendar({
     Key? key,
