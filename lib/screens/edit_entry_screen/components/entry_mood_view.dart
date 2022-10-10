@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:mood_tracker/constants.dart';
-import 'package:mood_tracker/data/mood_entry.dart';
+import 'package:mood_tracker/screens/edit_entry_screen/entry_template.dart';
 import 'package:mood_tracker/theme.dart';
 import 'package:mood_tracker/utils.dart';
 import 'package:mood_tracker/widgets/action_button.dart';
@@ -21,17 +21,13 @@ class EntryMoodView extends StatefulWidget {
 }
 
 class _EntryMoodViewState extends State<EntryMoodView> {
-  late int mood = context.read<MoodEntry?>()?.mood ?? 5;
-  late DateTime timestamp =
-      context.read<MoodEntry?>()?.timestamp ?? DateTime.now();
+  late int mood = context.read<EntryTemplate>().mood;
+  late DateTime timestamp = context.read<EntryTemplate>().timestamp;
 
   @override
   Widget build(BuildContext context) {
     final continueButton = ActionButton(
-      onTap: () => context.push(EntryDetailView(
-        selectedMood: mood,
-        entryTimestamp: timestamp,
-      )),
+      onTap: () => context.push(const EntryDetailView()),
       color: AppColors.contrastColor,
       label: "Continue",
       icon: Icons.arrow_forward_rounded,
