@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:mood_tracker/mood_entry.dart';
+import 'package:mood_tracker/data/mood_entry.dart';
 import 'package:mood_tracker/utils.dart';
 
 class MoodEntryModel extends ChangeNotifier {

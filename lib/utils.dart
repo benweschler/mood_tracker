@@ -1,4 +1,4 @@
-import 'dart:ui';
+import 'package:flutter/cupertino.dart';
 
 import 'constants.dart';
 
@@ -29,16 +29,36 @@ extension DateUtils on DateTime {
   }
 }
 
-Color colorFromMood(double mood) {
+typedef AppRoute<T> = CupertinoPageRoute<T>;
+
+extension NavigatorUtils on BuildContext {
+  Future<T?> push<T extends Object?>(
+    Widget page, {
+    bool fullscreenDialog = false,
+    bool rootNavigator = false,
+  }) =>
+      Navigator.of(this, rootNavigator: rootNavigator).push<T>(AppRoute<T>(
+        builder: (_) => page,
+        fullscreenDialog: fullscreenDialog,
+      ));
+
+  void pop<T extends Object?>({T? result, bool rootNavigator = false}) =>
+      Navigator.of(this, rootNavigator: rootNavigator).pop(result);
+}
+
+Route<T> convertToRoute<T>(Widget page) => AppRoute<T>(builder: (_) => page);
+
+Color colorFromMood(int mood) {
   const negativeColor = Color(0xFFe07a5f);
-  const positiveColor =  Color(0xFF81b29a);
+  const positiveColor = Color(0xFF81b29a);
 
   final t = mood / Constants.maxMood;
 
-  if(t < 0.5) {
+  if (t < 0.5) {
     return Color.lerp(negativeColor, negativeColor.withOpacity(0), t * 2)!;
-  } else if(t > 0.5) {
-    return Color.lerp(positiveColor.withOpacity(0), positiveColor, (t - 0.5) * 2)!;
+  } else if (t > 0.5) {
+    return Color.lerp(
+        positiveColor.withOpacity(0), positiveColor, (t - 0.5) * 2)!;
   } else {
     return const Color(0x00000000);
   }

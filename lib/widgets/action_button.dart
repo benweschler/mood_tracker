@@ -4,13 +4,15 @@ import 'package:mood_tracker/theme.dart';
 class ActionButton extends StatefulWidget {
   final GestureTapCallback onTap;
   final Color color;
-  final Widget child;
+  final String label;
+  final IconData icon;
 
   const ActionButton({
     Key? key,
     required this.onTap,
     required this.color,
-    required this.child,
+    required this.label,
+    required this.icon,
   }) : super(key: key);
 
   @override
@@ -28,7 +30,7 @@ class _ActionButtonState extends State<ActionButton> {
       onTapUp: (_) => setState(() => isPressed = false),
       onTap: widget.onTap,
       child: Container(
-        padding: const EdgeInsets.all(Insets.lg),
+        padding: const EdgeInsets.all(Insets.med),
         decoration: BoxDecoration(
           color: Color.alphaBlend(
             Colors.black.withOpacity(isPressed ? 0.1 : 0),
@@ -36,7 +38,22 @@ class _ActionButtonState extends State<ActionButton> {
           ),
           borderRadius: Corners.medBorderRadius,
         ),
-        child: widget.child,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              widget.label,
+              style: TextStyles.title.copyWith(
+                color: Theme.of(context).scaffoldBackgroundColor,
+              ),
+            ),
+            const SizedBox(width: Insets.sm),
+            Icon(
+              widget.icon,
+              color: Theme.of(context).scaffoldBackgroundColor,
+            ),
+          ],
+        ),
       ),
     );
   }

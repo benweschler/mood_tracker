@@ -1,8 +1,8 @@
 import 'package:equatable/equatable.dart';
 
 class MoodEntry with EquatableMixin {
-  final double mood;
-  final double sleep;
+  final int mood;
+  final Duration sleep;
   final String description;
   final DateTime timestamp;
 

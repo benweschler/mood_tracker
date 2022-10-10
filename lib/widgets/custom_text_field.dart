@@ -6,6 +6,7 @@ class CustomTextField extends StatelessWidget {
   final FocusNode? focusNode;
   final TextInputType? keyboardType;
   final String? hintText;
+  final bool allowMultiline;
 
   const CustomTextField({
     Key? key,
@@ -13,18 +14,22 @@ class CustomTextField extends StatelessWidget {
     this.focusNode,
     this.keyboardType,
     this.hintText,
+    this.allowMultiline = true,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextField(
       controller: controller,
+      textInputAction: TextInputAction.done,
       focusNode: focusNode,
-      keyboardType: keyboardType,
       cursorColor: AppColors.contrastColor,
+      keyboardType: keyboardType,
+      maxLines: allowMultiline ? null : 1,
       decoration: InputDecoration(
         hintText: hintText,
-        contentPadding: const EdgeInsets.all(Insets.sm),
+        contentPadding: const EdgeInsets.all(Insets.med),
+        isDense: true,
         enabledBorder: const OutlineInputBorder(
           borderSide: BorderSide(color: AppColors.contrastColor, width: 1),
           borderRadius: Corners.medBorderRadius,

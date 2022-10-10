@@ -16,9 +16,10 @@ class TextStyles {
 
 class Insets {
   static const double offset = 12.5;
-  static const double sm = 5;
-  static const double med = 10;
-  static const double lg = 15;
+  static const double xs = 5;
+  static const double sm = 10;
+  static const double med = 15;
+  static const double lg = 20;
 }
 
 class Corners {

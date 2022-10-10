@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:mood_tracker/constants.dart';
+import 'package:mood_tracker/data/mood_entry.dart';
 import 'package:mood_tracker/theme.dart';
 import 'package:mood_tracker/utils.dart';
+import 'package:mood_tracker/widgets/action_button.dart';
+import 'package:mood_tracker/widgets/buttons/styled_icon_button.dart';
+import 'package:mood_tracker/widgets/custom_scaffold.dart';
 import 'package:mood_tracker/widgets/custom_slider.dart';
 import 'package:mood_tracker/widgets/outlined_text.dart';
+import 'package:provider/provider.dart';
+
+import 'entry_detail_view.dart';
 
 class EntryMoodView extends StatefulWidget {
   const EntryMoodView({Key? key}) : super(key: key);
@@ -14,27 +21,48 @@ class EntryMoodView extends StatefulWidget {
 }
 
 class _EntryMoodViewState extends State<EntryMoodView> {
-  double mood = 5;
+  late int mood = context.read<MoodEntry?>()?.mood ?? 5;
+  late DateTime timestamp =
+      context.read<MoodEntry?>()?.timestamp ?? DateTime.now();
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const Expanded(child: _MoodHeading()),
-        StatefulBuilder(
-          builder: (_, setState) => _MoodSelector(
-            mood: mood,
-            onMoodChanged: (newMood) => setState(() => mood = newMood),
+    final continueButton = ActionButton(
+      onTap: () => context.push(EntryDetailView(
+        selectedMood: mood,
+        entryTimestamp: timestamp,
+      )),
+      color: AppColors.contrastColor,
+      label: "Continue",
+      icon: Icons.arrow_forward_rounded,
+    );
+
+    return CustomScaffold(
+      leading: StyledIconButton(
+        icon: Icons.close_rounded,
+        onTap: () => context.pop(rootNavigator: true),
+      ),
+      bottomActionButton: continueButton,
+      child: Column(
+        children: [
+          Expanded(child: _MoodHeading(timestamp: timestamp)),
+          StatefulBuilder(
+            builder: (_, setState) => _MoodSelector(
+              mood: mood,
+              onMoodChanged: (newMood) => setState(() => mood = newMood),
+            ),
           ),
-        ),
-        const Spacer(),
-      ],
+          const Spacer(),
+        ],
+      ),
     );
   }
 }
 
 class _MoodHeading extends StatelessWidget {
-  const _MoodHeading({Key? key}) : super(key: key);
+  final DateTime timestamp;
+
+  const _MoodHeading({Key? key, required this.timestamp}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -42,18 +70,18 @@ class _MoodHeading extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         const Text("How are you?", style: TextStyles.heading),
-        const SizedBox(height: Insets.med),
+        const SizedBox(height: Insets.sm),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Icon(Icons.calendar_today, color: AppColors.contrastColor),
-            const SizedBox(width: Insets.med),
+            const SizedBox(width: Insets.sm),
             Container(
               decoration: const BoxDecoration(
                 border: Border(bottom: BorderSide(color: TextStyles.textColor)),
               ),
               child: Text(
-                "Today, ${DateFormat.MMMd().format(DateTime.now())} at ${DateFormat.jm().format(DateTime.now())}",
+                "Today, ${DateFormat.MMMd().format(timestamp)} at ${DateFormat.jm().format(timestamp)}",
                 style: TextStyles.title.copyWith(fontWeight: FontWeight.normal),
               ),
             ),
@@ -65,8 +93,8 @@ class _MoodHeading extends StatelessWidget {
 }
 
 class _MoodSelector extends StatelessWidget {
-  final double mood;
-  final ValueChanged<double> onMoodChanged;
+  final int mood;
+  final ValueChanged<int> onMoodChanged;
 
   const _MoodSelector({
     Key? key,
@@ -89,13 +117,15 @@ class _MoodSelector extends StatelessWidget {
             fontWeight: FontWeight.w600,
           ),
         ),
-        const SizedBox(height: Insets.med),
+        const SizedBox(height: Insets.sm),
         CustomSlider(
           value: mood / Constants.maxMood,
           trackColor: colorFromMood(mood),
           borderColor: AppColors.contrastColor,
           divisions: Constants.maxMood.toInt(),
-          onChanged: (value) => onMoodChanged(value * Constants.maxMood),
+          onChanged: (value) => onMoodChanged(
+            (value * Constants.maxMood).toInt(),
+          ),
         ),
       ],
     );

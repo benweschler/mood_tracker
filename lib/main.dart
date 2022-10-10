@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 
 import 'constants.dart';
 import 'screens/home.dart';
-import 'mood_entry_model.dart';
+import 'models/mood_entry_model.dart';
 
 void main() {
   final moodModel = MoodEntryModel();
