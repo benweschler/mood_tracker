@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:mood_tracker/data/mood_entry.dart';
-import 'package:mood_tracker/screens/edit_entry_screen/entry_template.dart';
+import 'package:mood_tracker/screens/edit_entry_flow/views/entry_mood_view/entry_mood_view.dart';
 import 'package:mood_tracker/utils/navigation_utils.dart';
 import 'package:provider/provider.dart';
 
-import 'components/entry_mood_view.dart';
+import 'entry_template.dart';
 
 class EditEntryWrapper extends StatelessWidget {
   final MoodEntry? entry;

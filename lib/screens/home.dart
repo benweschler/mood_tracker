@@ -11,7 +11,7 @@ import 'package:mood_tracker/widgets/action_button.dart';
 import 'package:mood_tracker/widgets/custom_scaffold.dart';
 import 'package:provider/provider.dart';
 
-import 'edit_entry_screen/edit_entry_wrapper.dart';
+import 'edit_entry_flow/edit_entry_wrapper.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -43,7 +43,7 @@ class _HomeState extends State<Home> {
             const SizedBox(height: Insets.lg),
             ValueListenableBuilder(
               valueListenable: calendarNotifier,
-              builder: (context, selectedDay, _) => EntryDetails(
+              builder: (context, selectedDay, _) => _EntryDetailsCard(
                 context.select<MoodEntryModel, MoodEntry?>(
                   (model) => model.entryOn(selectedDay),
                 ),
@@ -56,10 +56,10 @@ class _HomeState extends State<Home> {
   }
 }
 
-class EntryDetails extends StatelessWidget {
+class _EntryDetailsCard extends StatelessWidget {
   final MoodEntry? entry;
 
-  const EntryDetails(this.entry, {Key? key}) : super(key: key);
+  const _EntryDetailsCard(this.entry, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
