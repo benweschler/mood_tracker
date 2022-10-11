@@ -5,7 +5,6 @@ import 'package:mood_tracker/models/mood_entry_model.dart';
 import 'package:mood_tracker/screens/mood_calendar.dart';
 import 'package:mood_tracker/theme.dart';
 import 'package:mood_tracker/utils/color_utils.dart';
-import 'package:mood_tracker/utils/date_time_utils.dart';
 import 'package:mood_tracker/utils/navigation_utils.dart';
 import 'package:mood_tracker/widgets/action_button.dart';
 import 'package:mood_tracker/widgets/custom_scaffold.dart';
@@ -21,7 +20,11 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  final calendarNotifier = ValueNotifier<DateTime>(DateTime.now().toDate());
+  late final calendarNotifier = ValueNotifier<DateTime>(
+    context.read<MoodEntryModel>().dates.reduce(
+          (a, b) => a.isAfter(b) ? a : b,
+        ),
+  );
 
   @override
   void dispose() {
@@ -43,11 +46,11 @@ class _HomeState extends State<Home> {
             const SizedBox(height: Insets.lg),
             ValueListenableBuilder(
               valueListenable: calendarNotifier,
-              builder: (context, selectedDay, _) => _EntryDetailsCard(
-                context.select<MoodEntryModel, MoodEntry?>(
-                  (model) => model.entryOn(selectedDay),
-                ),
-              ),
+              builder: (context, selectedDay, _) {
+                final entry = context.select<MoodEntryModel, MoodEntry?>(
+                    (model) => model.entryOn(selectedDay));
+                return entry != null ? _EntryDetailsCard(entry) : Container();
+              },
             ),
           ],
         ),
@@ -57,79 +60,41 @@ class _HomeState extends State<Home> {
 }
 
 class _EntryDetailsCard extends StatelessWidget {
-  final MoodEntry? entry;
+  final MoodEntry entry;
 
   const _EntryDetailsCard(this.entry, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    if (entry == null) return Container();
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          DateFormat.MMMMEEEEd().add_jm().format(entry!.timestamp),
-          style: TextStyles.body,
-        ),
-        const SizedBox(height: Insets.sm),
-        Container(
-          padding: const EdgeInsets.all(Insets.med),
-          decoration: BoxDecoration(
-            color: colorFromMood(entry!.mood),
-            border: Border.all(color: AppColors.contrastColor, width: 2),
-            borderRadius: Corners.medBorderRadius,
-          ),
-          child: Column(
+    return Container(
+      padding: const EdgeInsets.all(Insets.med),
+      decoration: BoxDecoration(
+        color: colorFromMood(entry.mood),
+        border: Border.all(color: AppColors.contrastColor, width: 2),
+        borderRadius: Corners.medBorderRadius,
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text("${entry.mood}", style: TextStyles.heading),
+          const SizedBox(width: Insets.med),
+          Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: Insets.med),
-              Column(
-                children: [
-                  Row(
-                    children: const [
-                      Text("MOOD", style: TextStyles.body),
-                      Text("SLEEP", style: TextStyles.body),
-                    ].map((e) => Expanded(child: Center(child: e))).toList(),
-                  ),
-                  Row(
-                    children: [
-                      Text("${entry!.mood}", style: TextStyles.heading),
-                      Text.rich(TextSpan(
-                        children: [
-                          TextSpan(
-                            text: "${entry!.sleep.inHours}",
-                            style: TextStyles.heading,
-                          ),
-                          TextSpan(
-                            text: "h ",
-                            style: TextStyles.title
-                                .copyWith(fontWeight: FontWeight.normal),
-                          ),
-                          TextSpan(
-                            text: "${entry!.sleep.inMinutes.remainder(60)}",
-                            style: TextStyles.heading,
-                          ),
-                          TextSpan(
-                            text: "m",
-                            style: TextStyles.title
-                                .copyWith(fontWeight: FontWeight.normal),
-                          ),
-                        ],
-                      )),
-                    ].map((e) => Expanded(child: Center(child: e))).toList(),
-                  ),
-                ],
+              Text(
+                DateFormat.MMMMEEEEd().format(entry.timestamp).toUpperCase(),
+                style: TextStyles.body
+                    .copyWith(fontSize: 16, color: TextStyles.captionColor),
               ),
               const SizedBox(height: Insets.lg),
               Text(
-                entry!.description,
+                entry.description,
                 style: TextStyles.title.copyWith(fontWeight: FontWeight.normal),
               ),
             ],
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

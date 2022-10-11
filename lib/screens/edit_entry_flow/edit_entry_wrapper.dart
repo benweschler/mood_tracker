@@ -16,7 +16,7 @@ class EditEntryWrapper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Provider<EntryTemplate>.value(
+    return ChangeNotifierProvider<EntryTemplate>.value(
       value: EntryTemplate.fromEntry(entry),
       child: Navigator(
         onGenerateRoute: (_) => convertToRoute(const EntryMoodView()),

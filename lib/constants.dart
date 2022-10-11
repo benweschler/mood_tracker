@@ -8,12 +8,6 @@ class Constants {
 
   static final dummyData = [
     MoodEntry(
-      mood: 5,
-      sleep: const Duration(hours: 7),
-      description: "Meh day.",
-      timestamp: DateTime.now(),
-    ),
-    MoodEntry(
       mood: 3,
       sleep: const Duration(hours: 4, minutes: 30),
       description: "Bad day.",

@@ -36,9 +36,11 @@ class MoodSelector extends StatelessWidget {
           trackColor: colorFromMood(mood),
           borderColor: AppColors.contrastColor,
           divisions: Constants.maxMood.toInt(),
-          onChanged: (value) => onMoodChanged(
-            (value * Constants.maxMood).toInt(),
-          ),
+          onChanged: (value) {
+            onMoodChanged(
+              (value * Constants.maxMood).toInt(),
+            );
+          },
         ),
       ],
     );

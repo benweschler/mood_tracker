@@ -16,8 +16,6 @@ class EntryMoodView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final template = context.read<EntryTemplate>();
-
     return CustomScaffold(
       resizeToAvoidBottomInset: false,
       leading: StyledIconButton(
@@ -30,18 +28,17 @@ class EntryMoodView extends StatelessWidget {
         label: "Continue",
         icon: Icons.arrow_forward_rounded,
       ),
-      child: Column(
-        children: [
-          Expanded(child: MoodHeading(initialTimestamp: template.timestamp)),
-          StatefulBuilder(
-            builder: (_, setState) => MoodSelector(
+      child: Consumer<EntryTemplate>(
+        builder: (_, template, __) => Column(
+          children: [
+            Expanded(child: MoodHeading(timestamp: template.timestamp)),
+            MoodSelector(
               mood: template.mood,
-              onMoodChanged: (newMood) =>
-                  setState(() => template.mood = newMood),
+              onMoodChanged: (newMood) => template.mood = newMood,
             ),
-          ),
-          const Spacer(),
-        ],
+            const Spacer(),
+          ],
+        ),
       ),
     );
   }

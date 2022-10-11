@@ -1,28 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:mood_tracker/screens/edit_entry_flow/entry_template.dart';
 import 'package:mood_tracker/theme.dart';
 import 'package:mood_tracker/utils/date_time_utils.dart';
 import 'package:mood_tracker/widgets/animations/implicit.dart';
+import 'package:provider/provider.dart';
 
 import 'date_selector.dart';
 
-class MoodHeading extends StatefulWidget {
-  final DateTime initialTimestamp;
+class MoodHeading extends StatelessWidget {
+  final DateTime timestamp;
 
-  const MoodHeading({Key? key, required this.initialTimestamp})
-      : super(key: key);
-
-  @override
-  State<MoodHeading> createState() => MoodHeadingState();
-}
-
-class MoodHeadingState extends State<MoodHeading> {
-  late DateTime _timestamp = widget.initialTimestamp;
-  late bool _timestampIsToday;
+  const MoodHeading({Key? key, required this.timestamp}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    _timestampIsToday = _timestamp.isSameDay(DateTime.now());
+    final isTimestampToday = timestamp.isSameDay(DateTime.now());
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -30,7 +23,7 @@ class MoodHeadingState extends State<MoodHeading> {
         AnimatedFadeTransition(
           firstChild: const Text("How are you?", style: TextStyles.heading),
           secondChild: const Text("How were you?", style: TextStyles.heading),
-          crossFadeState: _timestampIsToday
+          crossFadeState: isTimestampToday
               ? CrossFadeState.showFirst
               : CrossFadeState.showSecond,
           duration: Durations.universal,
@@ -38,9 +31,9 @@ class MoodHeadingState extends State<MoodHeading> {
         const SizedBox(height: Insets.sm),
         const SizedBox(height: Insets.sm),
         GestureDetector(
-          onTap: _chooseDate,
+          onTap: () => _chooseDate(context),
           child: AnimatedSingleChildUpdate(
-            childKey: ValueKey(_buildDateText()),
+            childKey: ValueKey(_buildDateText(isTimestampToday)),
             duration: Durations.universal,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -55,7 +48,7 @@ class MoodHeadingState extends State<MoodHeading> {
                     ),
                   ),
                   child: Text(
-                    _buildDateText(),
+                    _buildDateText(isTimestampToday),
                     style: TextStyles.title.copyWith(
                       fontWeight: FontWeight.normal,
                     ),
@@ -69,21 +62,22 @@ class MoodHeadingState extends State<MoodHeading> {
     );
   }
 
-  void _chooseDate() async {
+  void _chooseDate(BuildContext context) async {
+    final template = context.read<EntryTemplate>();
     final DateTime? newDate = await showModalBottomSheet<DateTime>(
       context: context,
       backgroundColor: Colors.transparent,
-      builder: (_) => DateSelector(initialDateTime: _timestamp),
+      builder: (_) => DateSelector(initialDateTime: timestamp),
     );
 
     if (newDate != null) {
-      setState(() => _timestamp = newDate);
+      template.timestamp = newDate;
     }
   }
 
-  String _buildDateText() {
+  String _buildDateText(bool timestampIsToday) {
     final String day =
-    _timestampIsToday ? "Today" : DateFormat.EEEE().format(_timestamp);
-    return "$day, ${DateFormat.MMMd().format(_timestamp)} at ${DateFormat.jm().format(_timestamp)}";
+        timestampIsToday ? "Today" : DateFormat.EEEE().format(timestamp);
+    return "$day, ${DateFormat.MMMd().format(timestamp)} at ${DateFormat.jm().format(timestamp)}";
   }
 }
