@@ -25,7 +25,10 @@ class _DateSelectorState extends State<DateSelector> {
     return ModalSheet(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       leftAction: CupertinoButton(
-        child: const Text("Cancel", style: TextStyles.title),
+        child: Text(
+          "Cancel",
+          style: TextStyles.title.copyWith(fontWeight: FontWeight.normal),
+        ),
         onPressed: () => context.pop(),
       ),
       rightAction: CupertinoButton(
@@ -34,13 +37,20 @@ class _DateSelectorState extends State<DateSelector> {
       ),
       child: SizedBox(
         height: MediaQuery.of(context).size.height * 0.3,
-        child: CupertinoDatePicker(
-          maximumDate: DateTime.now(),
-          initialDateTime: widget.initialDateTime,
-          onDateTimeChanged: (date) {
-            HapticFeedback.lightImpact();
-            setState(() => _selectedDateTime = date);
-          },
+        child: CupertinoTheme(
+          data: const CupertinoThemeData(
+            textTheme: CupertinoTextThemeData(
+              dateTimePickerTextStyle: TextStyles.title,
+            ),
+          ),
+          child: CupertinoDatePicker(
+            maximumDate: DateTime.now(),
+            initialDateTime: widget.initialDateTime,
+            onDateTimeChanged: (date) {
+              HapticFeedback.selectionClick();
+              setState(() => _selectedDateTime = date);
+            },
+          ),
         ),
       ),
     );

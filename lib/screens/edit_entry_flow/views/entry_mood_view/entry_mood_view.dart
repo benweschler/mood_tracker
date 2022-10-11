@@ -3,7 +3,7 @@ import 'package:mood_tracker/screens/edit_entry_flow/entry_template.dart';
 import 'package:mood_tracker/screens/edit_entry_flow/views/entry_details_view/entry_details_view.dart';
 import 'package:mood_tracker/theme.dart';
 import 'package:mood_tracker/utils/navigation_utils.dart';
-import 'package:mood_tracker/widgets/action_button.dart';
+import 'package:mood_tracker/widgets/buttons/action_button.dart';
 import 'package:mood_tracker/widgets/buttons/styled_icon_button.dart';
 import 'package:mood_tracker/widgets/custom_scaffold.dart';
 import 'package:provider/provider.dart';

@@ -6,7 +6,7 @@ import 'package:mood_tracker/screens/mood_calendar.dart';
 import 'package:mood_tracker/theme.dart';
 import 'package:mood_tracker/utils/color_utils.dart';
 import 'package:mood_tracker/utils/navigation_utils.dart';
-import 'package:mood_tracker/widgets/action_button.dart';
+import 'package:mood_tracker/widgets/buttons/action_button.dart';
 import 'package:mood_tracker/widgets/custom_scaffold.dart';
 import 'package:provider/provider.dart';
 
@@ -70,7 +70,7 @@ class _EntryDetailsCard extends StatelessWidget {
       padding: const EdgeInsets.all(Insets.med),
       decoration: BoxDecoration(
         color: colorFromMood(entry.mood),
-        border: Border.all(color: AppColors.contrastColor, width: 2),
+        border: Border.all(color: AppColors.contrastColor, width: 1),
         borderRadius: Corners.medBorderRadius,
       ),
       child: Row(
@@ -83,9 +83,11 @@ class _EntryDetailsCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  DateFormat.MMMMEEEEd().format(entry.timestamp).toUpperCase(),
+                  DateFormat.MMMMEEEEd()
+                      .format(entry.timestamp)
+                      .toUpperCase(),
                   style: TextStyles.body
-                      .copyWith(fontSize: 14, color: AppColors.contrastColor),
+                      .copyWith(color: TextStyles.captionColor),
                 ),
                 const SizedBox(height: Insets.sm),
                 Row(
@@ -96,7 +98,7 @@ class _EntryDetailsCard extends StatelessWidget {
                       size: 16,
                     ),
                     Text(
-                      " ${entry.sleep.inHours}h ${entry.sleep.inMinutes.remainder(60)}m of sleep.",
+                      " ${entry.sleep.inHours}h ${entry.sleep.inMinutes.remainder(60)}m",
                       style: TextStyles.body.copyWith(fontSize: 16),
                     ),
                   ],
@@ -104,7 +106,8 @@ class _EntryDetailsCard extends StatelessWidget {
                 const SizedBox(height: Insets.lg),
                 Text(
                   entry.description,
-                  style: TextStyles.title.copyWith(fontWeight: FontWeight.normal),
+                  style: TextStyles.title
+                      .copyWith(fontWeight: FontWeight.normal),
                 ),
               ],
             ),

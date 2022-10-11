@@ -42,9 +42,9 @@ class _EntryDetailsFormState extends State<EntryDetailsForm> {
           ),
         ),
         const SizedBox(height: Insets.lg),
-        const Text(
+        Text(
           "How many hours of sleep did you get?",
-          style: TextStyles.title,
+          style: TextStyles.title.copyWith(fontWeight: FontWeight.w500),
         ),
         const SizedBox(height: Insets.med),
         CupertinoTheme(
@@ -58,15 +58,15 @@ class _EntryDetailsFormState extends State<EntryDetailsForm> {
             minuteInterval: 15,
             initialTimerDuration: _template.sleep,
             onTimerDurationChanged: (value) {
-              HapticFeedback.lightImpact();
+              HapticFeedback.selectionClick();
               _template.sleep = value;
             },
           ),
         ),
         const SizedBox(height: Insets.lg),
-        const Text(
+        Text(
           "Anything else to say about your day?",
-          style: TextStyles.title,
+          style: TextStyles.title.copyWith(fontWeight: FontWeight.w500),
         ),
         const SizedBox(height: Insets.sm),
         CustomTextField(controller: _descriptionController),
