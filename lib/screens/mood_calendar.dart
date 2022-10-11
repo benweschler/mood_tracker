@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:mood_tracker/models/mood_entry_model.dart';
 import 'package:mood_tracker/theme.dart';
-import 'package:mood_tracker/utils.dart';
+import 'package:mood_tracker/utils/color_utils.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 

@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:mood_tracker/data/mood_entry.dart';
-import 'package:mood_tracker/utils.dart';
+import 'package:mood_tracker/utils/date_time_utils.dart';
 
 class MoodEntryModel extends ChangeNotifier {
   final Map<DateTime, MoodEntry> _entryMap = {};
@@ -13,6 +13,6 @@ class MoodEntryModel extends ChangeNotifier {
   }
 
   MoodEntry? entryOn(DateTime day) {
-    return _entryMap[day];
+    return _entryMap[day.toDate()];
   }
 }

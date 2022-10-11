@@ -6,12 +6,8 @@ class AppTheme {
   );
 }
 
-class TextStyles {
-  static const Color textColor = AppColors.contrastColor;
-  static final Color captionColor = textColor.withOpacity(0.5);
-  static const body = TextStyle(color: textColor, fontSize: 14);
-  static const title = TextStyle(color: textColor, fontSize: 18, fontWeight: FontWeight.w600);
-  static const heading = TextStyle(color: textColor, fontSize: 28, fontWeight: FontWeight.bold);
+class AppColors {
+  static const Color contrastColor = Color(0xFF3D405B);
 }
 
 class Insets {
@@ -22,12 +18,21 @@ class Insets {
   static const double lg = 20;
 }
 
+class TextStyles {
+  static const Color textColor = AppColors.contrastColor;
+  static final Color captionColor = textColor.withOpacity(0.5);
+
+  static const body = TextStyle(color: textColor, fontSize: 14);
+  static const title = TextStyle(color: textColor, fontSize: 18, fontWeight: FontWeight.w600);
+  static const heading = TextStyle(color: textColor, fontSize: 28, fontWeight: FontWeight.bold);
+}
+
+class Durations {
+  static const Duration universal = Duration(milliseconds: 300);
+}
+
 class Corners {
   static const double med = 10;
   static const Radius medRadius = Radius.circular(med);
   static const BorderRadius medBorderRadius = BorderRadius.all(medRadius);
-}
-
-class AppColors {
-  static const Color contrastColor = Color(0xFF3D405B);
 }

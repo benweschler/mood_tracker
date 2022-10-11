@@ -21,6 +21,7 @@ class CustomTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextField(
       controller: controller,
+      style: TextStyles.body.copyWith(fontSize: 16),
       textInputAction: TextInputAction.done,
       focusNode: focusNode,
       cursorColor: AppColors.contrastColor,

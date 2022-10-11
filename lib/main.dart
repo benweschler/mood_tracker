@@ -26,7 +26,7 @@ class MoodTracker extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: AppTheme.theme,
-      home: AnnotatedRegion<SystemUiOverlayStyle>(
+      home: const AnnotatedRegion<SystemUiOverlayStyle>(
         value: SystemUiOverlayStyle.dark,
         child: Home(),
       ),

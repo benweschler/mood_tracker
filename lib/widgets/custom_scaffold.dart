@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:mood_tracker/theme.dart';
 
+import 'animations/transitions.dart';
+
 class CustomScaffold extends StatelessWidget {
   final Widget child;
   final Widget? leading;
   final Widget? trailing;
   final Widget? bottomActionButton;
+  final bool resizeToAvoidBottomInset;
 
   const CustomScaffold({
     Key? key,
@@ -13,12 +16,13 @@ class CustomScaffold extends StatelessWidget {
     this.leading,
     this.trailing,
     this.bottomActionButton,
+    this.resizeToAvoidBottomInset = true,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomInset: resizeToAvoidBottomInset,
       body: SafeArea(
         minimum: const EdgeInsets.symmetric(horizontal: Insets.offset),
         child: Column(
@@ -89,38 +93,6 @@ class CustomAppBar extends StatelessWidget {
           : ReverseAnimation(animation),
       firstChild: fromHeroContext.widget,
       secondChild: toHeroContext.widget,
-    );
-  }
-}
-
-class CrossFadeTransition extends AnimatedWidget {
-  final Animation<double> animation;
-  final Widget firstChild;
-  final Widget secondChild;
-
-  const CrossFadeTransition({
-    super.key,
-    required this.animation,
-    required this.firstChild,
-    required this.secondChild,
-  }) : super(listenable: animation);
-
-  @override
-  Widget build(BuildContext context) {
-    return FadeTransition(
-      opacity: TweenSequence<double>([
-        TweenSequenceItem(
-          tween: Tween<double>(begin: 1, end: 0)
-              .chain(CurveTween(curve: Curves.easeOut)),
-          weight: 0.5,
-        ),
-        TweenSequenceItem(
-          tween: Tween<double>(begin: 0, end: 1)
-              .chain(CurveTween(curve: Curves.easeIn)),
-          weight: 0.5,
-        ),
-      ]).animate(animation),
-      child: animation.value <= 0.5 ? firstChild : secondChild,
     );
   }
 }

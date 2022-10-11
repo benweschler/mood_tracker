@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:mood_tracker/data/mood_entry.dart';
 import 'package:mood_tracker/screens/edit_entry_screen/entry_template.dart';
-import 'package:mood_tracker/utils.dart';
+import 'package:mood_tracker/utils/navigation_utils.dart';
 import 'package:provider/provider.dart';
 
 import 'components/entry_mood_view.dart';
