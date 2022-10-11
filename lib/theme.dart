@@ -19,12 +19,12 @@ class Insets {
 }
 
 class TextStyles {
-  static const Color textColor = AppColors.contrastColor;
-  static final Color captionColor = textColor.withOpacity(0.5);
+  static const Color _textColor = AppColors.contrastColor;
+  static Color get captionColor => _textColor.withOpacity(0.6);
 
-  static const body = TextStyle(color: textColor, fontSize: 14);
-  static const title = TextStyle(color: textColor, fontSize: 18, fontWeight: FontWeight.w600);
-  static const heading = TextStyle(color: textColor, fontSize: 28, fontWeight: FontWeight.bold);
+  static const body = TextStyle(color: _textColor, fontSize: 14);
+  static const title = TextStyle(color: _textColor, fontSize: 18, fontWeight: FontWeight.w600);
+  static const heading = TextStyle(color: _textColor, fontSize: 28, fontWeight: FontWeight.bold);
 }
 
 class Durations {

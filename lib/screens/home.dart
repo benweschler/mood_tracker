@@ -78,20 +78,36 @@ class _EntryDetailsCard extends StatelessWidget {
         children: [
           Text("${entry.mood}", style: TextStyles.heading),
           const SizedBox(width: Insets.med),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                DateFormat.MMMMEEEEd().format(entry.timestamp).toUpperCase(),
-                style: TextStyles.body
-                    .copyWith(fontSize: 16, color: TextStyles.captionColor),
-              ),
-              const SizedBox(height: Insets.lg),
-              Text(
-                entry.description,
-                style: TextStyles.title.copyWith(fontWeight: FontWeight.normal),
-              ),
-            ],
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  DateFormat.MMMMEEEEd().format(entry.timestamp).toUpperCase(),
+                  style: TextStyles.body
+                      .copyWith(fontSize: 14, color: AppColors.contrastColor),
+                ),
+                const SizedBox(height: Insets.sm),
+                Row(
+                  children: [
+                    const Icon(
+                      Icons.bedtime_rounded,
+                      color: AppColors.contrastColor,
+                      size: 16,
+                    ),
+                    Text(
+                      " ${entry.sleep.inHours}h ${entry.sleep.inMinutes.remainder(60)}m of sleep.",
+                      style: TextStyles.body.copyWith(fontSize: 16),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: Insets.lg),
+                Text(
+                  entry.description,
+                  style: TextStyles.title.copyWith(fontWeight: FontWeight.normal),
+                ),
+              ],
+            ),
           ),
         ],
       ),

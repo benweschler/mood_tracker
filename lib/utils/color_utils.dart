@@ -3,8 +3,8 @@ import 'dart:ui';
 import 'package:mood_tracker/constants.dart';
 
 Color colorFromMood(int mood) {
-  const negativeColor = Color(0xFFe07a5f);
-  const positiveColor = Color(0xFF81b29a);
+  const negativeColor = Color(0xFFE07A5F);
+  const positiveColor = Color(0xFF81B29A);
 
   final t = mood / Constants.maxMood;
 
