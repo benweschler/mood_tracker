@@ -9,6 +9,7 @@ class CustomScaffold extends StatelessWidget {
   final Widget? trailing;
   final Widget? bottomActionButton;
   final bool resizeToAvoidBottomInset;
+  final bool addBorderInsets;
 
   const CustomScaffold({
     Key? key,
@@ -17,6 +18,7 @@ class CustomScaffold extends StatelessWidget {
     this.trailing,
     this.bottomActionButton,
     this.resizeToAvoidBottomInset = true,
+    this.addBorderInsets = true,
   }) : super(key: key);
 
   @override
@@ -24,7 +26,9 @@ class CustomScaffold extends StatelessWidget {
     return Scaffold(
       resizeToAvoidBottomInset: resizeToAvoidBottomInset,
       body: SafeArea(
-        minimum: const EdgeInsets.symmetric(horizontal: Insets.offset),
+        minimum: addBorderInsets
+            ? const EdgeInsets.symmetric(horizontal: Insets.offset)
+            : EdgeInsets.zero,
         child: Column(
           children: [
             if (leading != null || trailing != null)
@@ -38,8 +42,11 @@ class CustomScaffold extends StatelessWidget {
                   child,
                   if (bottomActionButton != null)
                     Positioned(
-                      left: 0,
-                      right: 0,
+                      // The bottom action button should always be padded, so if
+                      // the entire body of the scaffold isn't padded, add
+                      // padding to the action button here.
+                      left: addBorderInsets ? 0 : Insets.offset,
+                      right: addBorderInsets ? 0 : Insets.offset,
                       bottom: Insets.offset,
                       child: bottomActionButton!,
                     ),

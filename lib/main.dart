@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:mood_tracker/bootstrapper.dart';
+
 import 'package:mood_tracker/theme.dart';
 import 'package:provider/provider.dart';
 
-import 'constants.dart';
-import 'screens/home.dart';
+import 'screens/home/home.dart';
 import 'models/mood_entry_model.dart';
 
-void main() {
-  final moodModel = MoodEntryModel();
-  for (var entry in Constants.dummyData) {
-    moodModel.addEntry(entry);
-  }
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Bootstrapper.bootstrap();
+
+  final MoodEntryModel moodModel = await MoodEntryModel.create();
+
   runApp(ChangeNotifierProvider<MoodEntryModel>.value(
     value: moodModel,
     child: const MoodTracker(),

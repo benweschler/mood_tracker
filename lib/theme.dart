@@ -22,9 +22,10 @@ class TextStyles {
   static const Color _textColor = AppColors.contrastColor;
   static Color get captionColor => _textColor.withOpacity(0.75);
 
-  static const body = TextStyle(color: _textColor, fontSize: 14);
-  static const title = TextStyle(color: _textColor, fontSize: 18, fontWeight: FontWeight.w600);
   static const heading = TextStyle(color: _textColor, fontSize: 28, fontWeight: FontWeight.bold);
+  static const title = TextStyle(color: _textColor, fontSize: 18, fontWeight: FontWeight.w600);
+  static const body1 = TextStyle(color: _textColor, fontSize: 16);
+  static const body2 = TextStyle(color: _textColor, fontSize: 14);
 }
 
 class Durations {

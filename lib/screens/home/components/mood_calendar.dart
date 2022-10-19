@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:mood_tracker/data/mood_entry.dart';
 import 'package:mood_tracker/models/mood_entry_model.dart';
 import 'package:mood_tracker/theme.dart';
 import 'package:mood_tracker/utils/color_utils.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
-
-import '../data/mood_entry.dart';
 
 class MoodCalendar extends StatelessWidget {
   final ValueChanged<DateTime> onDateTapped;
@@ -20,10 +19,14 @@ class MoodCalendar extends StatelessWidget {
   Widget build(BuildContext context) {
     return TableCalendar<MoodEntry>(
       focusedDay: context.select<MoodEntryModel, DateTime>(
-        (model) => model.dates.reduce((a, b) => a.isAfter(b) ? a : b),
+        (model) => model.dates.isEmpty
+            ? DateTime.now()
+            : model.dates.reduce((a, b) => a.isAfter(b) ? a : b),
       ),
       firstDay: context.select<MoodEntryModel, DateTime>(
-        (model) => model.dates.reduce((a, b) => a.isBefore(b) ? a : b),
+        (model) => model.dates.isEmpty
+            ? DateTime.now()
+            : model.dates.reduce((a, b) => a.isBefore(b) ? a : b),
       ),
       lastDay: DateTime.now(),
       onDaySelected: (selectedDay, _) {
@@ -49,7 +52,7 @@ class MoodCalendar extends StatelessWidget {
         ),
       ),
       daysOfWeekStyle: DaysOfWeekStyle(
-        weekdayStyle: TextStyles.body.copyWith(
+        weekdayStyle: TextStyles.body2.copyWith(
           color: TextStyles.captionColor,
         ),
       ),
@@ -80,7 +83,7 @@ class MoodCalendar extends StatelessWidget {
   }
 
   Widget _cellBuilder(BuildContext context, DateTime day) {
-    final content = Text("${day.day}", style: TextStyles.body);
+    final content = Text("${day.day}", style: TextStyles.body2);
     final mood = context
         .select<MoodEntryModel, MoodEntry?>((model) => model.entryOn(day))
         ?.mood;
