@@ -86,7 +86,7 @@ class TimelineView extends StatelessWidget {
         children.add(Center(
           child: Text(
             "${date.difference(previousDate).inDays} days missing",
-            style: TextStyles.body1.copyWith(color: TextStyles.captionColor),
+            style: TextStyles.body1.copyWith(color: AppColors.mutedColor),
           ),
         ));
       }

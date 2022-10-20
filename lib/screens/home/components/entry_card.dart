@@ -8,9 +8,8 @@ import 'package:mood_tracker/models/mood_entry_model.dart';
 import 'package:mood_tracker/screens/edit_entry_flow/edit_entry_wrapper.dart';
 import 'package:mood_tracker/theme.dart';
 import 'package:mood_tracker/utils/color_utils.dart';
-import 'package:mood_tracker/utils/iterable_utils.dart';
 import 'package:mood_tracker/utils/navigation_utils.dart';
-import 'package:mood_tracker/widgets/modal_sheet.dart';
+import 'package:mood_tracker/widgets/modal_sheets/context_menu.dart';
 import 'package:provider/provider.dart';
 
 class EntryDetailsCard extends StatelessWidget {
@@ -21,11 +20,7 @@ class EntryDetailsCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => showModalBottomSheet(
-        context: context,
-        backgroundColor: Colors.transparent,
-        builder: (_) => EntryContextMenu(entry),
-      ),
+      onTap: () => context.showModal(EntryContextMenu(entry)),
       child: Container(
         padding: const EdgeInsets.all(Insets.med),
         decoration: BoxDecoration(
@@ -41,9 +36,9 @@ class EntryDetailsCard extends StatelessWidget {
               right: 0,
               child: Transform.rotate(
                 angle: pi / 2,
-                child: Icon(
+                child: const Icon(
                   Icons.chevron_right_rounded,
-                  color: TextStyles.captionColor,
+                  color: AppColors.mutedColor,
                 ),
               ),
             ),
@@ -92,7 +87,7 @@ class _CardContent extends StatelessWidget {
                     .format(entry.timestamp)
                     .toUpperCase(),
                 style: TextStyles.body2.copyWith(
-                  color: TextStyles.captionColor,
+                  color: AppColors.mutedColor,
                 ),
               ),
               const SizedBox(height: Insets.sm),
@@ -161,73 +156,33 @@ class EntryContextMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ModalSheet(
-      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: Insets.offset,
-          vertical: Insets.lg,
+    return ContextMenu(
+      actions: [
+        ContextMenuAction(
+          icon: Icons.edit_rounded,
+          label: "Edit",
+          onTap: () {
+            context.pop();
+            context.push(
+              EditEntryWrapper(entry: entry),
+              fullscreenDialog: true,
+            );
+          },
         ),
-        child: Column(
-          children: <Widget>[
-            ContextMenuAction(
-              icon: Icons.edit_rounded,
-              label: "Edit",
-              onTap: () {
-                context.pop();
-                context.push(
-                  EditEntryWrapper(entry: entry),
-                  fullscreenDialog: true,
-                );
-              },
-            ),
-            ContextMenuAction(
-              icon: Icons.delete_rounded,
-              label: "Delete",
-              onTap: () {
-                context.read<MoodEntryModel>().removeEntry(entry);
-                context.pop();
-              },
-            ),
-            ContextMenuAction(
-              icon: Icons.close_rounded,
-              label: "Close",
-              onTap: context.pop,
-            ),
-          ].separate(const SizedBox(height: Insets.lg)).toList(),
+        ContextMenuAction(
+          icon: Icons.delete_rounded,
+          label: "Delete",
+          onTap: () {
+            context.read<MoodEntryModel>().removeEntry(entry);
+            context.pop();
+          },
         ),
-      ),
-    );
-  }
-}
-
-class ContextMenuAction extends StatelessWidget {
-  final IconData icon;
-  final String label;
-  final GestureTapCallback? onTap;
-
-  const ContextMenuAction({
-    Key? key,
-    required this.icon,
-    required this.label,
-    this.onTap,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      behavior: HitTestBehavior.translucent,
-      child: Row(
-        children: [
-          Icon(icon),
-          const SizedBox(width: Insets.lg),
-          Text(
-            label,
-            style: TextStyles.title.copyWith(fontWeight: FontWeight.w600),
-          ),
-        ],
-      ),
+        ContextMenuAction(
+          icon: Icons.close_rounded,
+          label: "Close",
+          onTap: context.pop,
+        ),
+      ],
     );
   }
 }

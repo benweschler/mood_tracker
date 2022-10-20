@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:mood_tracker/data/mood_entry.dart';
@@ -36,25 +38,25 @@ class MoodCalendar extends StatelessWidget {
       availableCalendarFormats: const {CalendarFormat.month: "Month"},
       availableGestures: AvailableGestures.horizontalSwipe,
       weekendDays: const [],
-      headerStyle: const HeaderStyle(
+      headerStyle: HeaderStyle(
         formatButtonVisible: false,
         headerPadding: EdgeInsets.zero,
-        leftChevronMargin: EdgeInsets.zero,
+        leftChevronMargin: Platform.isIOS ? EdgeInsets.zero : const EdgeInsets.all(Insets.xs + Insets.offset),
         leftChevronPadding: EdgeInsets.zero,
-        rightChevronMargin: EdgeInsets.zero,
+        rightChevronMargin: Platform.isIOS ? EdgeInsets.zero : const EdgeInsets.all(Insets.xs + Insets.offset),
         rightChevronPadding: EdgeInsets.zero,
-        leftChevronIcon: Icon(
+        leftChevronIcon: const Icon(
           Icons.chevron_left_rounded,
           color: AppColors.contrastColor,
         ),
-        rightChevronIcon: Icon(
+        rightChevronIcon: const Icon(
           Icons.chevron_right_rounded,
           color: AppColors.contrastColor,
         ),
       ),
       daysOfWeekStyle: DaysOfWeekStyle(
         weekdayStyle: TextStyles.body2.copyWith(
-          color: TextStyles.captionColor,
+          color: AppColors.mutedColor,
         ),
       ),
       calendarBuilders: CalendarBuilders(

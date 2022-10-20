@@ -2,17 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:mood_tracker/theme.dart';
 
 class ActionButton extends StatefulWidget {
-  final GestureTapCallback onTap;
-  final Color color;
   final String label;
-  final IconData icon;
+  final Color color;
+  final GestureTapCallback onTap;
+
+  final IconData? icon;
 
   const ActionButton({
     Key? key,
     required this.onTap,
     required this.color,
     required this.label,
-    required this.icon,
+    this.icon,
   }) : super(key: key);
 
   @override
@@ -47,11 +48,13 @@ class _ActionButtonState extends State<ActionButton> {
                 color: Theme.of(context).scaffoldBackgroundColor,
               ),
             ),
-            const SizedBox(width: Insets.sm),
-            Icon(
-              widget.icon,
-              color: Theme.of(context).scaffoldBackgroundColor,
-            ),
+            if (widget.icon != null) ...[
+              const SizedBox(width: Insets.sm),
+              Icon(
+                widget.icon,
+                color: Theme.of(context).scaffoldBackgroundColor,
+              ),
+            ]
           ],
         ),
       ),

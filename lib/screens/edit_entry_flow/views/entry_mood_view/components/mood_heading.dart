@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:mood_tracker/screens/edit_entry_flow/entry_template.dart';
 import 'package:mood_tracker/theme.dart';
 import 'package:mood_tracker/utils/date_time_utils.dart';
+import 'package:mood_tracker/utils/navigation_utils.dart';
 import 'package:mood_tracker/widgets/animations/implicit.dart';
 import 'package:provider/provider.dart';
 
@@ -64,10 +65,8 @@ class MoodHeading extends StatelessWidget {
 
   void _chooseDate(BuildContext context) async {
     final template = context.read<EntryTemplate>();
-    final DateTime? newDate = await showModalBottomSheet<DateTime>(
-      context: context,
-      backgroundColor: Colors.transparent,
-      builder: (_) => DateSelector(initialDateTime: timestamp),
+    final DateTime? newDate = await context.showModal(
+      DateSelector(initialDateTime: timestamp),
     );
 
     if (newDate != null) {

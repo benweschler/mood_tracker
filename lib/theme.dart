@@ -1,17 +1,22 @@
 import 'package:flutter/material.dart';
 
-class AppTheme {
+abstract class AppTheme {
   static final theme = ThemeData(
     useMaterial3: true,
     scaffoldBackgroundColor: const Color(0xFFF4F1DE),
+    dividerTheme: const DividerThemeData(
+      space: 0,
+      color: AppColors.contrastColor,
+    ),
   );
 }
 
-class AppColors {
+abstract class AppColors {
   static const Color contrastColor = Color(0xFF3D405B);
+  static const Color mutedColor = Color(0xBF3D405B);
 }
 
-class Insets {
+abstract class Insets {
   static const double offset = 12.5;
   static const double xs = 5;
   static const double sm = 10;
@@ -19,21 +24,22 @@ class Insets {
   static const double lg = 20;
 }
 
-class TextStyles {
+abstract class TextStyles {
   static const Color _textColor = AppColors.contrastColor;
-  static Color get captionColor => _textColor.withOpacity(0.75);
 
-  static const heading = TextStyle(color: _textColor, fontSize: 28, fontWeight: FontWeight.bold);
-  static const title = TextStyle(color: _textColor, fontSize: 18, fontWeight: FontWeight.w600);
+  static const heading =
+      TextStyle(color: _textColor, fontSize: 28, fontWeight: FontWeight.bold);
+  static const title =
+      TextStyle(color: _textColor, fontSize: 18, fontWeight: FontWeight.w600);
   static const body1 = TextStyle(color: _textColor, fontSize: 16);
   static const body2 = TextStyle(color: _textColor, fontSize: 14);
 }
 
-class Durations {
+abstract class Durations {
   static const Duration universal = Duration(milliseconds: 300);
 }
 
-class Corners {
+abstract class Corners {
   static const double med = 10;
   static const Radius medRadius = Radius.circular(med);
   static const BorderRadius medBorderRadius = BorderRadius.all(medRadius);

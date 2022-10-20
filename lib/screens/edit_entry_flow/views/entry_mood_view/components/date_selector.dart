@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mood_tracker/theme.dart';
 import 'package:mood_tracker/utils/navigation_utils.dart';
-import 'package:mood_tracker/widgets/modal_sheet.dart';
+import 'package:mood_tracker/widgets/buttons/action_button.dart';
+import 'package:mood_tracker/widgets/modal_sheets/modal_sheet.dart';
 
 class DateSelector extends StatefulWidget {
   final DateTime initialDateTime;
@@ -24,34 +25,52 @@ class _DateSelectorState extends State<DateSelector> {
   Widget build(BuildContext context) {
     return ModalSheet(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-      leftAction: CupertinoButton(
-        child: Text(
-          "Cancel",
-          style: TextStyles.title.copyWith(fontWeight: FontWeight.normal),
-        ),
-        onPressed: () => context.pop(),
-      ),
-      rightAction: CupertinoButton(
-        child: const Text("Done", style: TextStyles.title),
-        onPressed: () => context.pop(result: _selectedDateTime),
-      ),
-      child: SizedBox(
-        height: MediaQuery.of(context).size.height * 0.3,
-        child: CupertinoTheme(
-          data: const CupertinoThemeData(
-            textTheme: CupertinoTextThemeData(
-              dateTimePickerTextStyle: TextStyles.title,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.3,
+            child: CupertinoTheme(
+              data: const CupertinoThemeData(
+                textTheme: CupertinoTextThemeData(
+                  dateTimePickerTextStyle: TextStyles.title,
+                ),
+              ),
+              child: CupertinoDatePicker(
+                maximumDate: DateTime.now(),
+                initialDateTime: widget.initialDateTime,
+                onDateTimeChanged: (date) {
+                  HapticFeedback.selectionClick();
+                  setState(() => _selectedDateTime = date);
+                },
+              ),
             ),
           ),
-          child: CupertinoDatePicker(
-            maximumDate: DateTime.now(),
-            initialDateTime: widget.initialDateTime,
-            onDateTimeChanged: (date) {
-              HapticFeedback.selectionClick();
-              setState(() => _selectedDateTime = date);
-            },
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: Insets.med),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  child: ActionButton(
+                    label: "Cancel",
+                    color: AppColors.mutedColor,
+                    onTap: context.pop,
+                  ),
+                ),
+                const SizedBox(width: Insets.med),
+                Expanded(
+                  child: ActionButton(
+                    label: "Done",
+                    color: AppColors.contrastColor,
+                    onTap: () => context.pop(result: _selectedDateTime),
+                  ),
+                ),
+              ],
+            ),
           ),
-        ),
+          const SizedBox(height: Insets.med),
+        ],
       ),
     );
   }

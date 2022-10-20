@@ -3,7 +3,7 @@ import 'package:mood_tracker/utils/date_time_utils.dart';
 import 'data/mood_entry.dart';
 import 'models/mood_entry_model.dart';
 
-class Constants {
+abstract class Constants {
   static const int maxMood = 10;
   static const Duration sleepGoal = Duration(hours: 7, minutes: 30);
 
