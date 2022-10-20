@@ -5,6 +5,7 @@ import 'package:mood_tracker/models/mood_entry_model.dart';
 import 'package:mood_tracker/screens/edit_entry_flow/edit_entry_wrapper.dart';
 import 'package:mood_tracker/theme.dart';
 import 'package:mood_tracker/utils/date_time_utils.dart';
+import 'package:mood_tracker/utils/emoji_text_span.dart';
 import 'package:mood_tracker/utils/iterable_utils.dart';
 import 'package:mood_tracker/utils/navigation_utils.dart';
 import 'package:mood_tracker/widgets/buttons/action_button.dart';
@@ -52,15 +53,33 @@ class TimelineView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final model = context.watch<MoodEntryModel>();
-    final List<Widget> children = [];
     final List<DateTime> dates = model.dates.toList()..sort();
 
-    DateTime? previousDate;
+    if (dates.isEmpty) {
+      return Padding(
+        padding: const EdgeInsets.symmetric(horizontal: Insets.offset),
+        child: Center(
+          child: Text.rich(TextSpan(children: [
+            const TextSpan(
+              text: "It looks like you don't have any entries\nAdd an entry to get started ",
+              style: TextStyles.body1,
+            ),
+            EmojiTextSpan(
+              text: "😊",
+              style: TextStyles.body1,
+            ),
+          ]), textAlign: TextAlign.center,),
+        ),
+      );
+    }
 
+    final List<Widget> children = [];
+
+    DateTime? previousDate;
     for (DateTime date in dates) {
       if (previousDate == null || previousDate.month != date.month) {
         children.add(Text(
-          DateFormat.MMMM().format(date),
+          DateFormat.yMMMM().format(date),
           style: TextStyles.heading,
         ));
       } else if (!previousDate.isSameDay(date.copyWith(day: date.day - 1))) {
@@ -81,9 +100,8 @@ class TimelineView extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: Insets.offset),
       child: Consumer<MoodEntryModel>(
         builder: (_, model, __) => ListView(
-          children: children
-              .separate(const SizedBox(height: Insets.med))
-              .toList(),
+          children:
+              children.separate(const SizedBox(height: Insets.med)).toList(),
         ),
       ),
     );

@@ -33,7 +33,10 @@ class EntryDetailsView extends StatelessWidget {
                 const EntryDetailsForm(),
                 const SizedBox(height: Insets.lg),
                 Padding(
-                  padding: const EdgeInsets.only(bottom: Insets.offset),
+                  padding: EdgeInsets.only(
+                    bottom: Insets.offset +
+                        MediaQuery.of(context).viewPadding.bottom,
+                  ),
                   child: ActionButton(
                     onTap: () {
                       context

@@ -38,6 +38,7 @@ class MoodCalendar extends StatelessWidget {
       weekendDays: const [],
       headerStyle: const HeaderStyle(
         formatButtonVisible: false,
+        headerPadding: EdgeInsets.zero,
         leftChevronMargin: EdgeInsets.zero,
         leftChevronPadding: EdgeInsets.zero,
         rightChevronMargin: EdgeInsets.zero,

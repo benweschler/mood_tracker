@@ -34,6 +34,15 @@ class MoodEntryModel extends ChangeNotifier {
     _entryBox.put(entry.timestamp.toDate().millisecondsSinceEpoch.toString(), entry);
   }
 
+  void removeEntry(MoodEntry entry) {
+    final key = entry.timestamp.toDate();
+    if (_entryMap.containsKey(key)) {
+      _entryMap.remove(key);
+      notifyListeners();
+      _entryBox.delete(key.millisecondsSinceEpoch.toString());
+    }
+  }
+
   MoodEntry? entryOn(DateTime day) {
     return _entryMap[day.toDate()];
   }

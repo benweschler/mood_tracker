@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:mood_tracker/theme.dart';
 
 class ModalSheet extends StatelessWidget {
@@ -20,21 +21,23 @@ class ModalSheet extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: backgroundColor,
-        borderRadius: Corners.medBorderRadius,
+        borderRadius: const BorderRadius.vertical(top: Corners.medRadius),
       ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          if (leftAction != null || rightAction != null)
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                if (leftAction != null) leftAction!,
-                if (rightAction != null) rightAction!,
-              ],
-            ),
-          child,
-        ],
+      child: SafeArea(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            if (leftAction != null || rightAction != null)
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  leftAction != null ? leftAction! : const Spacer(),
+                  rightAction != null ? rightAction! : const Spacer(),
+                ],
+              ),
+            child,
+          ],
+        ),
       ),
     );
   }

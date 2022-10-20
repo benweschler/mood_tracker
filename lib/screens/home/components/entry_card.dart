@@ -1,11 +1,17 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:mood_tracker/constants.dart';
 import 'package:mood_tracker/data/mood_entry.dart';
+import 'package:mood_tracker/models/mood_entry_model.dart';
 import 'package:mood_tracker/screens/edit_entry_flow/edit_entry_wrapper.dart';
 import 'package:mood_tracker/theme.dart';
 import 'package:mood_tracker/utils/color_utils.dart';
+import 'package:mood_tracker/utils/iterable_utils.dart';
 import 'package:mood_tracker/utils/navigation_utils.dart';
+import 'package:mood_tracker/widgets/modal_sheet.dart';
+import 'package:provider/provider.dart';
 
 class EntryDetailsCard extends StatelessWidget {
   final MoodEntry entry;
@@ -15,9 +21,10 @@ class EntryDetailsCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => context.push(
-        EditEntryWrapper(entry: entry),
-        fullscreenDialog: true,
+      onTap: () => showModalBottomSheet(
+        context: context,
+        backgroundColor: Colors.transparent,
+        builder: (_) => EntryContextMenu(entry),
       ),
       child: Container(
         padding: const EdgeInsets.all(Insets.med),
@@ -26,7 +33,22 @@ class EntryDetailsCard extends StatelessWidget {
           border: Border.all(color: AppColors.contrastColor, width: 1),
           borderRadius: Corners.medBorderRadius,
         ),
-        child: _CardContent(entry),
+        child: Stack(
+          children: [
+            _CardContent(entry),
+            Positioned(
+              bottom: 0,
+              right: 0,
+              child: Transform.rotate(
+                angle: pi / 2,
+                child: Icon(
+                  Icons.chevron_right_rounded,
+                  color: TextStyles.captionColor,
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -85,13 +107,15 @@ class _CardContent extends StatelessWidget {
                   _buildSleepText(entry.sleep),
                 ],
               ),
-              const SizedBox(height: Insets.lg),
-              Text(
-                entry.description,
-                style: TextStyles.title.copyWith(
-                  fontWeight: FontWeight.normal,
+              if (entry.description.isNotEmpty) ...[
+                const SizedBox(height: Insets.lg),
+                Text(
+                  entry.description,
+                  style: TextStyles.title.copyWith(
+                    fontWeight: FontWeight.normal,
+                  ),
                 ),
-              ),
+              ]
             ],
           ),
         ),
@@ -127,5 +151,83 @@ class _CardContent extends StatelessWidget {
     }
 
     return Text.rich(TextSpan(children: spans));
+  }
+}
+
+class EntryContextMenu extends StatelessWidget {
+  final MoodEntry entry;
+
+  const EntryContextMenu(this.entry, {Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ModalSheet(
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(
+          horizontal: Insets.offset,
+          vertical: Insets.lg,
+        ),
+        child: Column(
+          children: <Widget>[
+            ContextMenuAction(
+              icon: Icons.edit_rounded,
+              label: "Edit",
+              onTap: () {
+                context.pop();
+                context.push(
+                  EditEntryWrapper(entry: entry),
+                  fullscreenDialog: true,
+                );
+              },
+            ),
+            ContextMenuAction(
+              icon: Icons.delete_rounded,
+              label: "Delete",
+              onTap: () {
+                context.read<MoodEntryModel>().removeEntry(entry);
+                context.pop();
+              },
+            ),
+            ContextMenuAction(
+              icon: Icons.close_rounded,
+              label: "Close",
+              onTap: context.pop,
+            ),
+          ].separate(const SizedBox(height: Insets.lg)).toList(),
+        ),
+      ),
+    );
+  }
+}
+
+class ContextMenuAction extends StatelessWidget {
+  final IconData icon;
+  final String label;
+  final GestureTapCallback? onTap;
+
+  const ContextMenuAction({
+    Key? key,
+    required this.icon,
+    required this.label,
+    this.onTap,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      behavior: HitTestBehavior.translucent,
+      child: Row(
+        children: [
+          Icon(icon),
+          const SizedBox(width: Insets.lg),
+          Text(
+            label,
+            style: TextStyles.title.copyWith(fontWeight: FontWeight.w600),
+          ),
+        ],
+      ),
+    );
   }
 }

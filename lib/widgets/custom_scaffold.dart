@@ -26,6 +26,7 @@ class CustomScaffold extends StatelessWidget {
     return Scaffold(
       resizeToAvoidBottomInset: resizeToAvoidBottomInset,
       body: SafeArea(
+        bottom: false,
         minimum: addBorderInsets
             ? const EdgeInsets.symmetric(horizontal: Insets.offset)
             : EdgeInsets.zero,
@@ -48,7 +49,7 @@ class CustomScaffold extends StatelessWidget {
                       left: addBorderInsets ? 0 : Insets.offset,
                       right: addBorderInsets ? 0 : Insets.offset,
                       bottom: Insets.offset,
-                      child: bottomActionButton!,
+                      child: SafeArea(child: bottomActionButton!),
                     ),
                 ],
               ),
