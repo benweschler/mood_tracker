@@ -4,8 +4,9 @@ import 'package:mood_tracker/screens/edit_entry_flow/views/entry_details_view/en
 import 'package:mood_tracker/theme.dart';
 import 'package:mood_tracker/utils/navigation_utils.dart';
 import 'package:mood_tracker/widgets/buttons/action_button.dart';
-import 'package:mood_tracker/widgets/buttons/styled_icon_button.dart';
+import 'package:mood_tracker/widgets/buttons/responsive_button.dart';
 import 'package:mood_tracker/widgets/custom_scaffold.dart';
+import 'package:mood_tracker/widgets/styled_icon.dart';
 import 'package:provider/provider.dart';
 
 import 'components/mood_heading.dart';
@@ -18,9 +19,12 @@ class EntryMoodView extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomScaffold(
       resizeToAvoidBottomInset: false,
-      leading: StyledIconButton(
-        icon: Icons.close_rounded,
+      leading: ResponsiveStrokeButton(
         onTap: () => context.pop(rootNavigator: true),
+        child: const StyledIcon(
+          icon: Icons.close_rounded,
+          color: AppColors.contrastColor,
+        ),
       ),
       bottomActionButton: ActionButton(
         onTap: () => context.push(const EntryDetailsView()),

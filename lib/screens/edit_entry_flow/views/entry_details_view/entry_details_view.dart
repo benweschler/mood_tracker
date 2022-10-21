@@ -4,8 +4,9 @@ import 'package:mood_tracker/screens/edit_entry_flow/entry_template.dart';
 import 'package:mood_tracker/theme.dart';
 import 'package:mood_tracker/utils/navigation_utils.dart';
 import 'package:mood_tracker/widgets/buttons/action_button.dart';
-import 'package:mood_tracker/widgets/buttons/styled_icon_button.dart';
+import 'package:mood_tracker/widgets/buttons/responsive_button.dart';
 import 'package:mood_tracker/widgets/custom_scaffold.dart';
+import 'package:mood_tracker/widgets/styled_icon.dart';
 import 'package:provider/provider.dart';
 
 import 'components/entry_details_form.dart';
@@ -16,9 +17,12 @@ class EntryDetailsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
-      leading: StyledIconButton(
-        icon: Icons.arrow_back,
+      leading: ResponsiveStrokeButton(
         onTap: context.pop,
+        child: const StyledIcon(
+          icon: Icons.arrow_back,
+          color: AppColors.contrastColor,
+        ),
       ),
       child: LayoutBuilder(
         builder: (_, constraints) => SingleChildScrollView(

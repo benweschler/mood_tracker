@@ -36,7 +36,8 @@ abstract class TextStyles {
 }
 
 abstract class Durations {
-  static const Duration universal = Duration(milliseconds: 300);
+  static const Duration short = Duration(milliseconds: 150);
+  static const Duration med = Duration(milliseconds: 300);
 }
 
 abstract class Corners {

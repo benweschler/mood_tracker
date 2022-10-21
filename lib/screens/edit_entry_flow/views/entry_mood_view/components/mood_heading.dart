@@ -5,6 +5,7 @@ import 'package:mood_tracker/theme.dart';
 import 'package:mood_tracker/utils/date_time_utils.dart';
 import 'package:mood_tracker/utils/navigation_utils.dart';
 import 'package:mood_tracker/widgets/animations/implicit.dart';
+import 'package:mood_tracker/widgets/buttons/responsive_button.dart';
 import 'package:provider/provider.dart';
 
 import 'date_selector.dart';
@@ -27,15 +28,16 @@ class MoodHeading extends StatelessWidget {
           crossFadeState: isTimestampToday
               ? CrossFadeState.showFirst
               : CrossFadeState.showSecond,
-          duration: Durations.universal,
+          duration: Durations.med,
         ),
         const SizedBox(height: Insets.sm),
         const SizedBox(height: Insets.sm),
-        GestureDetector(
+        ResponsiveStrokeButton(
           onTap: () => _chooseDate(context),
           child: AnimatedSingleChildUpdate(
+            key: UniqueKey(),
             childKey: ValueKey(_buildDateText(isTimestampToday)),
-            duration: Durations.universal,
+            duration: Durations.med,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -51,6 +53,7 @@ class MoodHeading extends StatelessWidget {
                   child: Text(
                     _buildDateText(isTimestampToday),
                     style: TextStyles.title.copyWith(
+                      color: AppColors.contrastColor,
                       fontWeight: FontWeight.normal,
                     ),
                   ),

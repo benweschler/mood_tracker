@@ -21,30 +21,28 @@ class ActionButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ResponsiveButton.light(
       onTap: onTap,
-      builder: (overlayColor) {
-        return Container(
-          padding: const EdgeInsets.all(Insets.med),
-          decoration: BoxDecoration(
-            color: Color.alphaBlend(overlayColor, color),
-            borderRadius: Corners.medBorderRadius,
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                label,
-                style: TextStyles.title.copyWith(
-                  color: Theme.of(context).scaffoldBackgroundColor,
-                ),
+      builder: (overlayColor) => Container(
+        padding: const EdgeInsets.all(Insets.med),
+        decoration: BoxDecoration(
+          color: Color.alphaBlend(overlayColor, color),
+          borderRadius: Corners.medBorderRadius,
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              label,
+              style: TextStyles.title.copyWith(
+                color: Theme.of(context).scaffoldBackgroundColor,
               ),
-              if (icon != null) ...[
-                const SizedBox(width: Insets.sm),
-                Icon(icon, color: Theme.of(context).scaffoldBackgroundColor),
-              ]
-            ],
-          ),
-        );
-      },
+            ),
+            if (icon != null) ...[
+              const SizedBox(width: Insets.sm),
+              Icon(icon, color: Theme.of(context).scaffoldBackgroundColor),
+            ]
+          ],
+        ),
+      ),
     );
   }
 }

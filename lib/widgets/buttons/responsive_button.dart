@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:mood_tracker/theme.dart';
 
 /// A button that exposes an overlay color that is shown when the button is
 /// pressed.
@@ -7,18 +8,18 @@ class ResponsiveButton extends StatefulWidget {
   final GestureTapCallback? onTap;
   final Color _overlayColor;
 
-  ResponsiveButton.light({
+  const ResponsiveButton.light({
     Key? key,
     required this.builder,
     required this.onTap,
-  })  : _overlayColor = const Color(0xFFFFFFFF).withOpacity(0.1),
+  })  : _overlayColor = const Color(0x20FFFFFF),
         super(key: key);
 
-  ResponsiveButton.dark({
+  const ResponsiveButton.dark({
     Key? key,
     required this.builder,
     required this.onTap,
-  })  : _overlayColor = const Color(0xFF000000).withOpacity(0.1),
+  })  : _overlayColor = const Color(0x20000000),
         super(key: key);
 
   @override
@@ -30,15 +31,84 @@ class _ResponsiveButtonState extends State<ResponsiveButton> {
 
   @override
   Widget build(BuildContext context) {
+    return _BaseResponsiveButton(
+      onTap: widget.onTap,
+      onPressed: (isPressed) => setState(() => this.isPressed = isPressed),
+      child: widget.builder(
+        isPressed ? widget._overlayColor : const Color(0x00000000),
+      ),
+    );
+  }
+}
+
+/// A responsive button intended to be wrapped around a body made up of strokes,
+/// namely an icon or text, rather than a solid body.
+class ResponsiveStrokeButton extends StatefulWidget {
+  final GestureTapCallback onTap;
+  final Widget child;
+
+  const ResponsiveStrokeButton({
+    Key? key,
+    required this.onTap,
+    required this.child,
+  }) : super(key: key);
+
+  @override
+  State<ResponsiveStrokeButton> createState() => _ResponsiveStrokeButtonState();
+}
+
+class _ResponsiveStrokeButtonState extends State<ResponsiveStrokeButton>
+    with SingleTickerProviderStateMixin {
+  late final _controller = AnimationController(
+    duration: Durations.short,
+    value: 1,
+    vsync: this,
+  );
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: _controller,
+      builder: (_, __) => Opacity(
+        opacity: _controller.value / 2 + 0.5,
+        child: _BaseResponsiveButton(
+          onPressed: (isPressed) =>
+              isPressed ? _controller.value = 0 : _controller.forward(),
+          onTap: widget.onTap,
+          child: widget.child,
+        ),
+      ),
+    );
+  }
+}
+
+class _BaseResponsiveButton extends StatelessWidget {
+  final GestureTapCallback? onTap;
+  final ValueChanged<bool> onPressed;
+  final Widget child;
+
+  const _BaseResponsiveButton({
+    Key? key,
+    required this.onTap,
+    required this.onPressed,
+    required this.child,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
-      onTapDown: (_) => setState(() => isPressed = true),
-      onTapCancel: () => setState(() => isPressed = false),
-      onTapUp: (_) => setState(() => isPressed = false),
-      onTap: widget.onTap,
-      child: widget.builder(
-        widget._overlayColor.withOpacity(isPressed ? 0.06 : 0),
-      ),
+      onTapDown: (_) => onPressed(true),
+      onTapCancel: () => onPressed(false),
+      onTapUp: (_) => onPressed(false),
+      onTap: onTap,
+      child: child,
     );
   }
 }

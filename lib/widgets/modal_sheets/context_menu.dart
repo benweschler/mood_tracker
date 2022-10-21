@@ -41,27 +41,25 @@ class ContextMenuAction extends StatelessWidget {
   Widget build(BuildContext context) {
     return ResponsiveButton.dark(
       onTap: onTap,
-      builder: (overlayColor) {
-        return Container(
-          color: overlayColor,
-          padding: const EdgeInsets.symmetric(
-            horizontal: Insets.offset,
-            vertical: Insets.lg,
-          ),
-          child: Row(
-            children: [
-              Icon(icon),
-              const SizedBox(width: Insets.lg),
-              Expanded(
-                child: Text(
-                  label,
-                  style: TextStyles.title.copyWith(fontWeight: FontWeight.w600),
-                ),
+      builder: (overlayColor) => Container(
+        color: overlayColor,
+        padding: const EdgeInsets.symmetric(
+          horizontal: Insets.offset,
+          vertical: Insets.lg,
+        ),
+        child: Row(
+          children: [
+            Icon(icon),
+            const SizedBox(width: Insets.lg),
+            Expanded(
+              child: Text(
+                label,
+                style: TextStyles.title.copyWith(fontWeight: FontWeight.w600),
               ),
-            ],
-          ),
-        );
-      },
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
