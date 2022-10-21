@@ -32,7 +32,7 @@ class EntryDetailsCard extends StatelessWidget {
           children: [
             _CardContent(entry),
             Positioned(
-              bottom: 0,
+              top: 0,
               right: 0,
               child: Transform.rotate(
                 angle: pi / 2,
@@ -83,12 +83,14 @@ class _CardContent extends StatelessWidget {
             children: [
               Text(
                 DateFormat.MMMMEEEEd()
-                    .add_jm()
+                    //.add_jm()
                     .format(entry.timestamp)
                     .toUpperCase(),
-                style: TextStyles.body2.copyWith(
-                  color: AppColors.mutedColor,
-                ),
+                style: TextStyles.body2.copyWith(color: AppColors.mutedColor),
+              ),
+              Text(
+                DateFormat.jm().format(entry.timestamp).toUpperCase(),
+                style: TextStyles.body2.copyWith(color: AppColors.mutedColor),
               ),
               const SizedBox(height: Insets.sm),
               Row(
