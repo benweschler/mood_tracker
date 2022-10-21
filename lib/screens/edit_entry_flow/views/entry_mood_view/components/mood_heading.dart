@@ -31,34 +31,38 @@ class MoodHeading extends StatelessWidget {
           duration: Durations.med,
         ),
         const SizedBox(height: Insets.sm),
-        const SizedBox(height: Insets.sm),
         ResponsiveStrokeButton(
           onTap: () => _chooseDate(context),
-          child: AnimatedSingleChildUpdate(
-            key: UniqueKey(),
-            childKey: ValueKey(_buildDateText(isTimestampToday)),
-            duration: Durations.med,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Icon(Icons.calendar_today,
-                    color: AppColors.contrastColor),
-                const SizedBox(width: Insets.sm),
-                Container(
-                  decoration: const BoxDecoration(
-                    border: Border(
-                      bottom: BorderSide(color: AppColors.contrastColor),
+          child: Padding(
+            padding: const EdgeInsets.all(Insets.sm),
+            child: AnimatedSingleChildUpdate(
+              key: UniqueKey(),
+              childKey: ValueKey(_buildDateText(isTimestampToday)),
+              duration: Durations.med,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Icon(
+                    Icons.calendar_today,
+                    color: AppColors.contrastColor,
+                  ),
+                  const SizedBox(width: Insets.sm),
+                  Container(
+                    decoration: const BoxDecoration(
+                      border: Border(
+                        bottom: BorderSide(color: AppColors.contrastColor),
+                      ),
+                    ),
+                    child: Text(
+                      _buildDateText(isTimestampToday),
+                      style: TextStyles.title.copyWith(
+                        color: AppColors.contrastColor,
+                        fontWeight: FontWeight.normal,
+                      ),
                     ),
                   ),
-                  child: Text(
-                    _buildDateText(isTimestampToday),
-                    style: TextStyles.title.copyWith(
-                      color: AppColors.contrastColor,
-                      fontWeight: FontWeight.normal,
-                    ),
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

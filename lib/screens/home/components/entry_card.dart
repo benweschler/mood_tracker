@@ -83,7 +83,6 @@ class _CardContent extends StatelessWidget {
             children: [
               Text(
                 DateFormat.MMMMEEEEd()
-                    //.add_jm()
                     .format(entry.timestamp)
                     .toUpperCase(),
                 style: TextStyles.body2.copyWith(color: AppColors.mutedColor),
