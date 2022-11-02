@@ -80,17 +80,26 @@ class TimelineView extends StatelessWidget {
       );
     }
 
-    //TODO: this is an extremely bad way to build children. Use ListView.builder.
+    //TODO: this is a inefficient bad way to build children. Use ListView.builder.
 
     final List<Widget> children = [];
 
     DateTime? previousDate;
     for (DateTime date in dates) {
       if (previousDate == null || previousDate.month != date.month) {
-        children.add(Row(
+        final monthHeading = Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(DateFormat.yMMMM().format(date), style: TextStyles.heading),
+            Text.rich(TextSpan(children: [
+              TextSpan(
+                text: "${DateFormat.MMMM().format(date)} ",
+                style: TextStyles.heading.copyWith(fontWeight: FontWeight.bold),
+              ),
+              TextSpan(
+                text: DateFormat.y().format(date),
+                style: TextStyles.heading.copyWith(color: AppColors.mutedColor),
+              ),
+            ])),
             ResponsiveStrokeButton(
               onTap: () => context.push(
                 const LoggerView(),
@@ -100,10 +109,15 @@ class TimelineView extends StatelessWidget {
                 icon: Icons.timeline,
                 color: AppColors.contrastColor,
               ),
-            )
+            ),
           ],
-        ));
-      } else if (!previousDate.isSameDay(date.copyWith(day: date.day - 1))) {
+        );
+        children.add(monthHeading);
+      }
+      final bool isMissedDay = previousDate != null
+          ? previousDate.isSameDay(date.copyWith(day: date.day - 1))
+          : false;
+      if (isMissedDay) {
         children.add(Center(
           child: Text(
             "${date.difference(previousDate).inDays} days missing",
