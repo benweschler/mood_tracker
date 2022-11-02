@@ -10,7 +10,9 @@ import 'package:mood_tracker/utils/emoji_text_span.dart';
 import 'package:mood_tracker/utils/iterable_utils.dart';
 import 'package:mood_tracker/utils/navigation_utils.dart';
 import 'package:mood_tracker/widgets/buttons/action_button.dart';
+import 'package:mood_tracker/widgets/buttons/responsive_button.dart';
 import 'package:mood_tracker/widgets/custom_scaffold.dart';
+import 'package:mood_tracker/widgets/styled_icon.dart';
 import 'package:provider/provider.dart';
 
 import 'components/entry_card.dart';
@@ -39,11 +41,9 @@ class _HomeState extends State<Home> {
       addBorderInsets: false,
       child: PageView(
         controller: _controller,
-        children: [
-          const TimelineView(),
-          const CalendarView(),
-          // TODO: remove
-          if (Logger.dump.isNotEmpty) const LoggerView(),
+        children: const [
+          TimelineView(),
+          CalendarView(),
         ],
       ),
     );
@@ -80,14 +80,28 @@ class TimelineView extends StatelessWidget {
       );
     }
 
+    //TODO: this is an extremely bad way to build children. Use ListView.builder.
+
     final List<Widget> children = [];
 
     DateTime? previousDate;
     for (DateTime date in dates) {
       if (previousDate == null || previousDate.month != date.month) {
-        children.add(Text(
-          DateFormat.yMMMM().format(date),
-          style: TextStyles.heading,
+        children.add(Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(DateFormat.yMMMM().format(date), style: TextStyles.heading),
+            ResponsiveStrokeButton(
+              onTap: () => context.push(
+                const LoggerView(),
+                rootNavigator: true,
+              ),
+              child: const StyledIcon(
+                icon: Icons.timeline,
+                color: AppColors.contrastColor,
+              ),
+            )
+          ],
         ));
       } else if (!previousDate.isSameDay(date.copyWith(day: date.day - 1))) {
         children.add(Center(
@@ -107,12 +121,13 @@ class TimelineView extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: Insets.offset),
       child: Consumer<MoodEntryModel>(
         builder: (_, model, __) => ListView(
-          children:
-              children.separate(const SizedBox(height: Insets.med)).toList()
-                //TODO: this is a hacky fix to add padding to avoid obscuring the ListView with the bottom action button.
-                ..add(SizedBox(
-                  height: MediaQuery.of(context).viewPadding.bottom + 50,
-                )),
+          children: children
+              .separate(const SizedBox(height: Insets.med))
+              .toList()
+            //TODO: this is a hacky fix to add padding to avoid obscuring the ListView with the bottom action button.
+            ..add(SizedBox(
+              height: MediaQuery.of(context).viewPadding.bottom + 50,
+            )),
         ),
       ),
     );
@@ -192,12 +207,18 @@ class LoggerView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: Insets.offset),
+    return CustomScaffold(
+      leading: ResponsiveStrokeButton(
+        onTap: () => context.pop(rootNavigator: true),
+        child: const StyledIcon(
+          icon: Icons.arrow_back_rounded,
+          color: AppColors.contrastColor,
+        ),
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text("Error Log", style: TextStyles.heading),
+          const Text("Event Log", style: TextStyles.heading),
           const SizedBox(height: Insets.lg),
           ...Logger.dump
               .map<Widget>((log) => Text(log))

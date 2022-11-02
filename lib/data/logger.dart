@@ -1,5 +1,5 @@
 class Logger {
-  static const List<String> _log = <String>[];
+  static final List<String> _log = <String>[];
 
   const Logger._();
 

@@ -39,6 +39,7 @@ class CustomScaffold extends StatelessWidget {
               ),
             Expanded(
               child: Stack(
+                fit: StackFit.expand,
                 children: [
                   child,
                   if (bottomActionButton != null)
