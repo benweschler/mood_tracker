@@ -11,10 +11,9 @@ abstract class PlatformWidget<C extends Widget, M extends Widget>
 
   @override
   Widget build(BuildContext context) {
-    if (Platform.isIOS) {
-      // Use Cupertino Widget on iOS.
-      return buildCupertinoWidget(context);
-    }
+    // Use Cupertino Widget on iOS.
+    if (Platform.isIOS) return buildCupertinoWidget(context);
+    
     // Assume that the app will only ever run on either iOS or Android.
     // Use Material Widget on Android.
     return buildMaterialWidget(context);

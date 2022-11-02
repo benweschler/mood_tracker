@@ -10,6 +10,7 @@ import 'package:mood_tracker/theme.dart';
 import 'package:mood_tracker/utils/color_utils.dart';
 import 'package:mood_tracker/utils/navigation_utils.dart';
 import 'package:mood_tracker/widgets/modal_sheets/context_menu.dart';
+import 'package:mood_tracker/widgets/platform_aware/platform_alert_dialog.dart';
 import 'package:provider/provider.dart';
 
 class EntryDetailsCard extends StatelessWidget {
@@ -82,9 +83,7 @@ class _CardContent extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                DateFormat.MMMMEEEEd()
-                    .format(entry.timestamp)
-                    .toUpperCase(),
+                DateFormat.MMMMEEEEd().format(entry.timestamp).toUpperCase(),
                 style: TextStyles.body2.copyWith(color: AppColors.mutedColor),
               ),
               Text(
@@ -173,10 +172,7 @@ class EntryContextMenu extends StatelessWidget {
         ContextMenuAction(
           icon: Icons.delete_rounded,
           label: "Delete",
-          onTap: () {
-            context.read<MoodEntryModel>().removeEntry(entry);
-            context.pop();
-          },
+          onTap: () => onAttemptDelete(context),
         ),
         ContextMenuAction(
           icon: Icons.close_rounded,
@@ -185,5 +181,28 @@ class EntryContextMenu extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  void onAttemptDelete(BuildContext context) async {
+    deleteEntry() {
+      context.read<MoodEntryModel>().removeEntry(entry);
+      context.pop();
+    }
+
+    final bool confirmation = await showPlatformDialog(
+      context: context,
+      dialog: const PlatformAlertDialog(
+        title: "Delete Entry",
+        content:
+        "Are you sure you want to delete this entry? This cannot be undone.",
+        confirmText: "Delete",
+        cancelText: "Cancel",
+        isDestructiveAction: true,
+      ),
+    );
+
+    if (confirmation) {
+      deleteEntry();
+    }
   }
 }

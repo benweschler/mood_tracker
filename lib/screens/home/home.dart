@@ -109,6 +109,7 @@ class TimelineView extends StatelessWidget {
         builder: (_, model, __) => ListView(
           children:
               children.separate(const SizedBox(height: Insets.med)).toList()
+                //TODO: this is a hacky fix to add padding to avoid obscuring the ListView with the bottom action button.
                 ..add(SizedBox(
                   height: MediaQuery.of(context).viewPadding.bottom + 50,
                 )),
