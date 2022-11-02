@@ -13,7 +13,7 @@ void main() async {
 
   await Bootstrapper.bootstrap();
 
-  final MoodEntryModel moodModel = await MoodEntryModel.create();
+  final MoodEntryModel moodModel = MoodEntryModel();
 
   runApp(ChangeNotifierProvider<MoodEntryModel>.value(
     value: moodModel,

@@ -13,6 +13,6 @@ class Bootstrapper {
     await Hive.initFlutter();
     Hive.registerAdapter<Duration>(DurationAdapter());
     Hive.registerAdapter<MoodEntry>(MoodEntryAdapter());
-    await Hive.openLazyBox<MoodEntry>(Constants.entryBoxName);
+    await Hive.openBox<MoodEntry>(Constants.entryBoxName);
   }
 }

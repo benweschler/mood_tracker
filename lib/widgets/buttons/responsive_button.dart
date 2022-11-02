@@ -8,18 +8,20 @@ class ResponsiveButton extends StatefulWidget {
   final GestureTapCallback? onTap;
   final Color _overlayColor;
 
+  /// A button that adds a light overlay when tapped.
   const ResponsiveButton.light({
     Key? key,
     required this.builder,
     required this.onTap,
-  })  : _overlayColor = const Color(0x20FFFFFF),
+  })  : _overlayColor = const Color(0x0FFFFFFF),
         super(key: key);
 
+  /// A button that adds a dark overlay when tapped.
   const ResponsiveButton.dark({
     Key? key,
     required this.builder,
     required this.onTap,
-  })  : _overlayColor = const Color(0x20000000),
+  })  : _overlayColor = const Color(0x0F000000),
         super(key: key);
 
   @override

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:mood_tracker/data/logger.dart';
 import 'package:mood_tracker/data/mood_entry.dart';
 import 'package:mood_tracker/models/mood_entry_model.dart';
 import 'package:mood_tracker/screens/edit_entry_flow/edit_entry_wrapper.dart';
@@ -38,9 +39,11 @@ class _HomeState extends State<Home> {
       addBorderInsets: false,
       child: PageView(
         controller: _controller,
-        children: const [
-          TimelineView(),
-          CalendarView(),
+        children: [
+          const TimelineView(),
+          const CalendarView(),
+          // TODO: remove
+          if (Logger.dump.isNotEmpty) const LoggerView(),
         ],
       ),
     );
@@ -59,16 +62,20 @@ class TimelineView extends StatelessWidget {
       return Padding(
         padding: const EdgeInsets.symmetric(horizontal: Insets.offset),
         child: Center(
-          child: Text.rich(TextSpan(children: [
-            const TextSpan(
-              text: "It looks like you don't have any entries\nAdd an entry to get started ",
-              style: TextStyles.body1,
-            ),
-            EmojiTextSpan(
-              text: "😊",
-              style: TextStyles.body1,
-            ),
-          ]), textAlign: TextAlign.center,),
+          child: Text.rich(
+            TextSpan(children: [
+              const TextSpan(
+                text:
+                    "It looks like you don't have any entries\nAdd an entry to get started ",
+                style: TextStyles.body1,
+              ),
+              EmojiTextSpan(
+                text: "😊",
+                style: TextStyles.body1,
+              ),
+            ]),
+            textAlign: TextAlign.center,
+          ),
         ),
       );
     }
@@ -101,7 +108,10 @@ class TimelineView extends StatelessWidget {
       child: Consumer<MoodEntryModel>(
         builder: (_, model, __) => ListView(
           children:
-              children.separate(const SizedBox(height: Insets.med)).toList(),
+              children.separate(const SizedBox(height: Insets.med)).toList()
+                ..add(SizedBox(
+                  height: MediaQuery.of(context).viewPadding.bottom + 50,
+                )),
         ),
       ),
     );
@@ -172,6 +182,28 @@ class _EntryActionButton extends StatelessWidget {
       ),
       label: "Add Entry",
       icon: Icons.add_rounded,
+    );
+  }
+}
+
+class LoggerView extends StatelessWidget {
+  const LoggerView({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: Insets.offset),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text("Error Log", style: TextStyles.heading),
+          const SizedBox(height: Insets.lg),
+          ...Logger.dump
+              .map<Widget>((log) => Text(log))
+              .separate(const SizedBox(height: Insets.med))
+              .toList()
+        ],
+      ),
     );
   }
 }

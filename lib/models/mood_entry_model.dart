@@ -1,49 +1,37 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:mood_tracker/constants.dart';
+import 'package:mood_tracker/data/logger.dart';
 import 'package:mood_tracker/data/mood_entry.dart';
 import 'package:mood_tracker/utils/date_time_utils.dart';
 
 class MoodEntryModel extends ChangeNotifier {
-  final LazyBox<MoodEntry> _entryBox;
-  final Map<DateTime, MoodEntry> _entryMap;
+  final Box<MoodEntry> _entryBox = Hive.box(Constants.entryBoxName);
 
-  MoodEntryModel._internal({
-    required LazyBox<MoodEntry> entryBox,
-    required Map<DateTime, MoodEntry> entryMap,
-  })  : _entryBox = entryBox,
-        _entryMap = entryMap;
+  Iterable<DateTime> get dates => _entryBox.keys
+      .map((unix) => DateTime.fromMillisecondsSinceEpoch(int.parse(unix)));
 
-  static Future<MoodEntryModel> create() async {
-    final LazyBox<MoodEntry> entryBox = Hive.lazyBox(Constants.entryBoxName);
-    final Map<DateTime, MoodEntry> entryMap = {};
-
-    for (String key in entryBox.keys) {
-      entryMap[DateTime.fromMillisecondsSinceEpoch(int.parse(key)).toDate()] =
-          (await entryBox.get(key))!;
-    }
-
-    return MoodEntryModel._internal(entryBox: entryBox, entryMap: entryMap);
-  }
-
-  Iterable<DateTime> get dates => _entryMap.keys;
-
-  void addEntry(MoodEntry entry) {
-    _entryMap[entry.timestamp.toDate()] = entry;
+  Future<void> addEntry(MoodEntry entry) async {
+    await _entryBox.put(
+      entry.timestamp.toDate().millisecondsSinceEpoch.toString(),
+      entry,
+    );
     notifyListeners();
-    _entryBox.put(entry.timestamp.toDate().millisecondsSinceEpoch.toString(), entry);
   }
 
-  void removeEntry(MoodEntry entry) {
-    final key = entry.timestamp.toDate();
-    if (_entryMap.containsKey(key)) {
-      _entryMap.remove(key);
-      notifyListeners();
-      _entryBox.delete(key.millisecondsSinceEpoch.toString());
+  void removeEntry(MoodEntry entry) async {
+    final key = entry.timestamp.toDate().millisecondsSinceEpoch.toString();
+    if (!_entryBox.containsKey(key)) {
+      Logger.add("Timestamp ${entry.timestamp} not found.");
+      Logger.add("Current keys: ${_entryBox.keys}");
     }
+
+    await _entryBox.delete(key);
+    notifyListeners();
   }
 
-  MoodEntry? entryOn(DateTime day) {
-    return _entryMap[day.toDate()];
-  }
+  MoodEntry? entryOn(DateTime day) =>
+      _entryBox.get(day.millisecondsSinceEpoch.toString());
 }
