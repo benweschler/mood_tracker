@@ -10,8 +10,12 @@ import 'package:mood_tracker/utils/date_time_utils.dart';
 class MoodEntryModel extends ChangeNotifier {
   final Box<MoodEntry> _entryBox = Hive.box(Constants.entryBoxName);
 
-  Iterable<DateTime> get dates => _entryBox.keys
-      .map((unix) => DateTime.fromMillisecondsSinceEpoch(int.parse(unix)));
+  Iterable<DateTime> get dates => _entryBox.keys.map(
+      (unix) => DateTime.fromMillisecondsSinceEpoch(
+        int.parse(unix),
+        isUtc: true,
+      ),
+    );
 
   Future<void> addEntry(MoodEntry entry) async {
     await _entryBox.put(
