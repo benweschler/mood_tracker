@@ -19,6 +19,8 @@ class MoodEntryModel extends ChangeNotifier {
       entry,
     );
     notifyListeners();
+
+    Logger.add("Added entry on ${entry.timestamp}");
   }
 
   void removeEntry(MoodEntry entry) async {
@@ -30,6 +32,8 @@ class MoodEntryModel extends ChangeNotifier {
 
     await _entryBox.delete(key);
     notifyListeners();
+
+    Logger.add("Removed entry on ${entry.timestamp}");
   }
 
   MoodEntry? entryOn(DateTime day) =>
