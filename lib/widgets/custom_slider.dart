@@ -29,7 +29,7 @@ class CustomSlider extends StatelessWidget {
         trackShape: _CustomSliderTrackShape(strokeColor: borderColor),
         thumbShape: _CustomSliderThumb(
           color: Theme.of(context).scaffoldBackgroundColor,
-          radius: _trackHeight / 2 * (4/3),
+          radius: _trackHeight / 2 * (4 / 3),
           strokeColor: borderColor,
           strokeWidth: _borderWidth,
         ),
@@ -103,7 +103,8 @@ mixin _BaseSliderTrackShape {
   }
 }
 
-class _CustomSliderTrackShape extends SliderTrackShape with _BaseSliderTrackShape {
+class _CustomSliderTrackShape extends SliderTrackShape
+    with _BaseSliderTrackShape {
   final Color strokeColor;
 
   const _CustomSliderTrackShape({required this.strokeColor});
@@ -116,6 +117,7 @@ class _CustomSliderTrackShape extends SliderTrackShape with _BaseSliderTrackShap
     required SliderThemeData sliderTheme,
     required Animation<double> enableAnimation,
     required Offset thumbCenter,
+    Offset? secondaryOffset,
     bool isEnabled = false,
     bool isDiscrete = false,
     required TextDirection textDirection,

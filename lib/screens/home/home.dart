@@ -55,29 +55,30 @@ class TimelineView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = context.watch<MoodEntryModel>();
-    final List<DateTime> dates = model.dates.toList()..sort();
-
-    if (dates.isEmpty) return _buildNoEntryMessage();
-
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: Insets.offset),
       child: Consumer<MoodEntryModel>(
-        builder: (_, model, __) => ListView.builder(
-          itemCount: dates.length + 1,
-          itemBuilder: (_, index) {
-            //TODO: this is a hacky way to ensure that the ListView is not obscured by the overlaid action button.
-            if (index == dates.length) {
-              final bottomPadding = SizedBox(
-                height: MediaQuery.of(context).viewPadding.bottom + 50,
-              );
-              return bottomPadding;
-            }
+        builder: (_, model, __) {
+          final List<DateTime> dates = model.dates.toList()
+            ..sort((a, b) => b.compareTo(a));
+          if (dates.isEmpty) return _buildNoEntryMessage();
 
-            getEntry(day) => model.entryOn(day);
-            return _buildTimelineElement(index, dates, getEntry);
-          },
-        ),
+          return ListView.builder(
+            itemCount: dates.length + 1,
+            itemBuilder: (_, index) {
+              //TODO: this is a hacky way to ensure that the ListView is not obscured by the overlaid action button.
+              if (index == dates.length) {
+                final bottomPadding = SizedBox(
+                  height: MediaQuery.of(context).viewPadding.bottom + 50,
+                );
+                return bottomPadding;
+              }
+
+              getEntry(day) => model.entryOn(day);
+              return _buildTimelineElement(index, dates, getEntry);
+            },
+          );
+        },
       ),
     );
   }
@@ -128,23 +129,20 @@ class TimelineView extends StatelessWidget {
   }
 
   Widget _buildNoEntryMessage() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: Insets.offset),
-      child: Center(
-        child: Text.rich(
-          TextSpan(children: [
-            const TextSpan(
-              text:
-                  "It looks like you don't have any entries\nAdd an entry to get started ",
-              style: TextStyles.body1,
-            ),
-            EmojiTextSpan(
-              text: "😊",
-              style: TextStyles.body1,
-            ),
-          ]),
-          textAlign: TextAlign.center,
-        ),
+    return Center(
+      child: Text.rich(
+        TextSpan(children: [
+          const TextSpan(
+            text:
+                "It looks like you don't have any entries\nAdd an entry to get started ",
+            style: TextStyles.body1,
+          ),
+          EmojiTextSpan(
+            text: "😊",
+            style: TextStyles.body1,
+          ),
+        ]),
+        textAlign: TextAlign.center,
       ),
     );
   }

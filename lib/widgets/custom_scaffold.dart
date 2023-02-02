@@ -47,8 +47,10 @@ class CustomScaffold extends StatelessWidget {
                       // The bottom action button should always be padded, so if
                       // the entire body of the scaffold isn't padded, add
                       // padding to the action button here.
-                      left: addBorderInsets ? 0 : Insets.offset,
-                      right: addBorderInsets ? 0 : Insets.offset,
+                      left:
+                          Insets.offset + (addBorderInsets ? 0 : Insets.offset),
+                      right:
+                          Insets.offset + (addBorderInsets ? 0 : Insets.offset),
                       bottom: Insets.offset,
                       child: SafeArea(child: bottomActionButton!),
                     ),
