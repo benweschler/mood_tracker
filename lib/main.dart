@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:parchment/bootstrapper.dart';
+import 'package:parchment/router.dart';
 
 import 'package:parchment/theme.dart';
 import 'package:provider/provider.dart';
 
-import 'screens/home/home.dart';
 import 'models/mood_entry_model.dart';
 
 void main() async {
@@ -13,26 +12,21 @@ void main() async {
 
   await Bootstrapper.bootstrap();
 
-  final MoodEntryModel moodModel = MoodEntryModel();
-
-  runApp(ChangeNotifierProvider<MoodEntryModel>.value(
-    value: moodModel,
-    child: const MoodTracker(),
+  runApp(ChangeNotifierProvider<MoodEntryModel>(
+    create: (_) => MoodEntryModel(),
+    child: const ParchmentApp(),
   ));
 }
 
-class MoodTracker extends StatelessWidget {
-  const MoodTracker({super.key});
+class ParchmentApp extends StatelessWidget {
+  const ParchmentApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       theme: AppTheme.theme,
-      home: const AnnotatedRegion<SystemUiOverlayStyle>(
-        value: SystemUiOverlayStyle.dark,
-        child: Home(),
-      ),
+      debugShowCheckedModeBanner: false,
+      routerConfig: AppRouter().appRouter,
     );
   }
 }

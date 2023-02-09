@@ -43,34 +43,7 @@ class EntryDetailsView extends StatelessWidget {
                     bottom: Insets.offset +
                         MediaQuery.of(context).viewPadding.bottom,
                   ),
-                  child: ActionButton(
-                    onTap: () async {
-                      final template = context.read<EntryTemplate>();
-                      final model = context.read<MoodEntryModel>();
-                      pop() => context.pop(rootNavigator: true);
-
-                      if(model.dates.contains(template.timestamp.toDate())) {
-                        final confirmation = await showPlatformDialog(
-                          context: context,
-                          dialog: const PlatformAlertDialog(
-                            title: "Overwrite Entry",
-                            content:
-                            "There's already an entry on this day. Are you sure you want to overwrite it?",
-                            confirmText: "Yes",
-                            cancelText: "No",
-                            isDestructiveAction: true,
-                          ),
-                        );
-
-                        if(!confirmation) return;
-                      }
-                      model.addEntry(template.toEntry());
-                      pop();
-                    },
-                    color: AppColors.contrastColor,
-                    label: "Save",
-                    icon: Icons.done_rounded,
-                  ),
+                  child: const AddEntryButton(),
                 ),
               ],
             ),
@@ -80,3 +53,40 @@ class EntryDetailsView extends StatelessWidget {
     );
   }
 }
+
+class AddEntryButton extends StatelessWidget {
+  const AddEntryButton({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ActionButton(
+      onTap: () async {
+        final template = context.read<EntryTemplate>();
+        final model = context.read<MoodEntryModel>();
+        pop() => context.pop(rootNavigator: true);
+
+        if(model.dates.contains(template.timestamp.toDate())) {
+          final confirmation = await showPlatformDialog(
+            context: context,
+            dialog: const PlatformAlertDialog(
+              title: "Overwrite Entry",
+              content:
+              "There's already an entry on this day. Are you sure you want to overwrite it?",
+              confirmText: "Yes",
+              cancelText: "No",
+              isDestructiveAction: true,
+            ),
+          );
+
+          if(!confirmation) return;
+        }
+        model.addEntry(template.toEntry());
+        pop();
+      },
+      color: AppColors.contrastColor,
+      label: "Save",
+      icon: Icons.done_rounded,
+    );
+  }
+}
+

@@ -12,14 +12,14 @@ import 'package:parchment/widgets/styled_icon.dart';
 import 'components/calendar_view.dart';
 import 'components/timeline_view.dart';
 
-class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
-  State<Home> createState() => _HomeState();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeState extends State<Home> {
+class _HomeScreenState extends State<HomeScreen> {
   final _controller = PageController();
 
   @override

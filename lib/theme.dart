@@ -27,12 +27,11 @@ abstract class Insets {
 abstract class TextStyles {
   static const Color _textColor = AppColors.contrastColor;
 
-  static const heading =
-      TextStyle(color: _textColor, fontSize: 28, fontWeight: FontWeight.bold);
-  static const title =
-      TextStyle(color: _textColor, fontSize: 18, fontWeight: FontWeight.w600);
-  static const body1 = TextStyle(color: _textColor, fontSize: 16);
-  static const body2 = TextStyle(color: _textColor, fontSize: 14);
+  static const heading = TextStyle(fontSize: 28, color: _textColor, fontWeight: FontWeight.bold);
+  static const title = TextStyle(fontSize: 18, color: _textColor, fontWeight: FontWeight.w600);
+  static const body1 = TextStyle(fontSize: 16, color: _textColor);
+  static const body2 = TextStyle(fontSize: 14, color: _textColor);
+  static const caption = TextStyle(fontSize: 12, fontWeight: FontWeight.normal);
 }
 
 abstract class Durations {
