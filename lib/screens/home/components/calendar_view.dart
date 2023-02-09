@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:parchment/data/mood_entry.dart';
 import 'package:parchment/models/mood_entry_model.dart';
 import 'package:provider/provider.dart';
-import 'package:parchment/theme.dart';
+import 'package:parchment/styles.dart';
 
 import 'entry_card.dart';
 import 'mood_calendar.dart';

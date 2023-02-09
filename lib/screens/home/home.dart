@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:parchment/data/logger.dart';
 import 'package:parchment/screens/edit_entry_flow/edit_entry_wrapper.dart';
-import 'package:parchment/theme.dart';
+import 'package:parchment/styles.dart';
 import 'package:parchment/utils/iterable_utils.dart';
 import 'package:parchment/utils/navigation_utils.dart';
 import 'package:parchment/widgets/buttons/action_button.dart';

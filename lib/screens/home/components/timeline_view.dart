@@ -3,7 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:parchment/data/mood_entry.dart';
 import 'package:parchment/models/mood_entry_model.dart';
 import 'package:parchment/screens/home/home.dart';
-import 'package:parchment/theme.dart';
+import 'package:parchment/styles.dart';
 import 'package:parchment/utils/date_time_utils.dart';
 import 'package:parchment/utils/emoji_text_span.dart';
 import 'package:parchment/utils/navigation_utils.dart';

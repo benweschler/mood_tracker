@@ -6,7 +6,7 @@ import 'package:parchment/constants.dart';
 import 'package:parchment/data/mood_entry.dart';
 import 'package:parchment/models/mood_entry_model.dart';
 import 'package:parchment/screens/edit_entry_flow/edit_entry_wrapper.dart';
-import 'package:parchment/theme.dart';
+import 'package:parchment/styles.dart';
 import 'package:parchment/utils/color_utils.dart';
 import 'package:parchment/utils/navigation_utils.dart';
 import 'package:parchment/widgets/modal_sheets/context_menu.dart';

@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:parchment/theme.dart';
+import 'package:parchment/styles.dart';
 
 /// A button that exposes an overlay color that is shown when the button is
 /// pressed.

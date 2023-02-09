@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:parchment/constants.dart';
-import 'package:parchment/theme.dart';
+import 'package:parchment/styles.dart';
 import 'package:parchment/utils/color_utils.dart';
 import 'package:parchment/widgets/custom_slider.dart';
 import 'package:parchment/widgets/outlined_text.dart';

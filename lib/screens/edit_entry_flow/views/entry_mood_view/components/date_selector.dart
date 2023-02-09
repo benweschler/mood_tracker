@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:parchment/theme.dart';
+import 'package:parchment/styles.dart';
 import 'package:parchment/utils/navigation_utils.dart';
 import 'package:parchment/widgets/buttons/action_button.dart';
 import 'package:parchment/widgets/modal_sheets/modal_sheet.dart';

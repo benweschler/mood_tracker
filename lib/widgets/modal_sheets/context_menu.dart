@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:parchment/theme.dart';
+import 'package:parchment/styles.dart';
 import 'package:parchment/utils/iterable_utils.dart';
 import 'package:parchment/widgets/buttons/responsive_button.dart';
 

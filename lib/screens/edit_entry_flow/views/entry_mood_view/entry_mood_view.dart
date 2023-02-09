@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:parchment/screens/edit_entry_flow/entry_template.dart';
 import 'package:parchment/screens/edit_entry_flow/views/entry_details_view/entry_details_view.dart';
-import 'package:parchment/theme.dart';
+import 'package:parchment/styles.dart';
 import 'package:parchment/utils/navigation_utils.dart';
 import 'package:parchment/widgets/buttons/action_button.dart';
 import 'package:parchment/widgets/buttons/responsive_button.dart';

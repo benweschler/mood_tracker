@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:parchment/theme.dart';
+import 'package:parchment/styles.dart';
 
 const List<NavigationTab> _bottomNavigationTabs = [
   NavigationTab(

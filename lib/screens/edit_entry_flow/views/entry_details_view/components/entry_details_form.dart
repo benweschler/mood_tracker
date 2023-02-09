@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:parchment/screens/edit_entry_flow/entry_template.dart';
-import 'package:parchment/theme.dart';
+import 'package:parchment/styles.dart';
 import 'package:parchment/widgets/custom_text_field.dart';
 import 'package:provider/provider.dart';
 
