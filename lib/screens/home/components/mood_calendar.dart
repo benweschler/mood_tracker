@@ -2,10 +2,10 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:mood_tracker/data/mood_entry.dart';
-import 'package:mood_tracker/models/mood_entry_model.dart';
-import 'package:mood_tracker/theme.dart';
-import 'package:mood_tracker/utils/color_utils.dart';
+import 'package:parchment/data/mood_entry.dart';
+import 'package:parchment/models/mood_entry_model.dart';
+import 'package:parchment/theme.dart';
+import 'package:parchment/utils/color_utils.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 

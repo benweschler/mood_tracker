@@ -1,3 +1,3 @@
-# Mood Tracker
+# Parchment
 
 A simple mood tracker and journal.

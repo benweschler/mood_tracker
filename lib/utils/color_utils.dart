@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-import 'package:mood_tracker/constants.dart';
+import 'package:parchment/constants.dart';
 
 Color colorFromMood(int mood) {
   const negativeColor = Color(0xFFf19f8a);

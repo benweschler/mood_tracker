@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.benweschler.mood_tracker">
+    package="com.benweschler.parchment">
    <application
-        android:label="mood_tracker"
+        android:label="parchment"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

@@ -1,4 +1,4 @@
-package com.benweschler.mood_tracker
+package com.benweschler.parchment
 
 import io.flutter.embedding.android.FlutterActivity
 

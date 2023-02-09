@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
-import 'package:mood_tracker/screens/edit_entry_flow/entry_template.dart';
-import 'package:mood_tracker/theme.dart';
-import 'package:mood_tracker/widgets/custom_text_field.dart';
+import 'package:parchment/screens/edit_entry_flow/entry_template.dart';
+import 'package:parchment/theme.dart';
+import 'package:parchment/widgets/custom_text_field.dart';
 import 'package:provider/provider.dart';
 
 class EntryDetailsForm extends StatefulWidget {

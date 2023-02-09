@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:mood_tracker/widgets/platform_aware/platform_widget.dart';
+import 'package:parchment/widgets/platform_aware/platform_widget.dart';
 
 class PlatformAlertDialog extends PlatformWidget {
   final String title;

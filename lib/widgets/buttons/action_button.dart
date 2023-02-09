@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mood_tracker/theme.dart';
-import 'package:mood_tracker/widgets/buttons/responsive_button.dart';
+import 'package:parchment/theme.dart';
+import 'package:parchment/widgets/buttons/responsive_button.dart';
 
 class ActionButton extends StatelessWidget {
   final String label;

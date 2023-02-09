@@ -2,10 +2,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:mood_tracker/constants.dart';
-import 'package:mood_tracker/data/logger.dart';
-import 'package:mood_tracker/data/mood_entry.dart';
-import 'package:mood_tracker/utils/date_time_utils.dart';
+import 'package:parchment/constants.dart';
+import 'package:parchment/data/logger.dart';
+import 'package:parchment/data/mood_entry.dart';
+import 'package:parchment/utils/date_time_utils.dart';
 
 class MoodEntryModel extends ChangeNotifier {
   final Box<MoodEntry> _entryBox = Hive.box(Constants.entryBoxName);

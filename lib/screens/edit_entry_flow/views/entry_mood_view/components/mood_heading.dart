@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:mood_tracker/screens/edit_entry_flow/entry_template.dart';
-import 'package:mood_tracker/theme.dart';
-import 'package:mood_tracker/utils/date_time_utils.dart';
-import 'package:mood_tracker/utils/navigation_utils.dart';
-import 'package:mood_tracker/widgets/animations/implicit.dart';
-import 'package:mood_tracker/widgets/buttons/responsive_button.dart';
+import 'package:parchment/screens/edit_entry_flow/entry_template.dart';
+import 'package:parchment/theme.dart';
+import 'package:parchment/utils/date_time_utils.dart';
+import 'package:parchment/utils/navigation_utils.dart';
+import 'package:parchment/widgets/animations/implicit.dart';
+import 'package:parchment/widgets/buttons/responsive_button.dart';
 import 'package:provider/provider.dart';
 
 import 'date_selector.dart';

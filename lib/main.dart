@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:mood_tracker/bootstrapper.dart';
+import 'package:parchment/bootstrapper.dart';
 
-import 'package:mood_tracker/theme.dart';
+import 'package:parchment/theme.dart';
 import 'package:provider/provider.dart';
 
 import 'screens/home/home.dart';

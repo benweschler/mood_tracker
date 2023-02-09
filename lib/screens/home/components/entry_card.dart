@@ -2,15 +2,15 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:mood_tracker/constants.dart';
-import 'package:mood_tracker/data/mood_entry.dart';
-import 'package:mood_tracker/models/mood_entry_model.dart';
-import 'package:mood_tracker/screens/edit_entry_flow/edit_entry_wrapper.dart';
-import 'package:mood_tracker/theme.dart';
-import 'package:mood_tracker/utils/color_utils.dart';
-import 'package:mood_tracker/utils/navigation_utils.dart';
-import 'package:mood_tracker/widgets/modal_sheets/context_menu.dart';
-import 'package:mood_tracker/widgets/platform_aware/platform_alert_dialog.dart';
+import 'package:parchment/constants.dart';
+import 'package:parchment/data/mood_entry.dart';
+import 'package:parchment/models/mood_entry_model.dart';
+import 'package:parchment/screens/edit_entry_flow/edit_entry_wrapper.dart';
+import 'package:parchment/theme.dart';
+import 'package:parchment/utils/color_utils.dart';
+import 'package:parchment/utils/navigation_utils.dart';
+import 'package:parchment/widgets/modal_sheets/context_menu.dart';
+import 'package:parchment/widgets/platform_aware/platform_alert_dialog.dart';
 import 'package:provider/provider.dart';
 
 class EntryDetailsCard extends StatelessWidget {

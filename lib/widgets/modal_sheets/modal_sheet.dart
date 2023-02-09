@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:mood_tracker/theme.dart';
+import 'package:parchment/theme.dart';
 
 class ModalSheet extends StatelessWidget {
   final Color backgroundColor;

@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
-import 'package:mood_tracker/constants.dart';
-import 'package:mood_tracker/data/mood_entry.dart';
+import 'package:parchment/constants.dart';
+import 'package:parchment/data/mood_entry.dart';
 
 class EntryTemplate extends ChangeNotifier {
   int _mood;

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:mood_tracker/data/logger.dart';
-import 'package:mood_tracker/screens/edit_entry_flow/edit_entry_wrapper.dart';
-import 'package:mood_tracker/theme.dart';
-import 'package:mood_tracker/utils/iterable_utils.dart';
-import 'package:mood_tracker/utils/navigation_utils.dart';
-import 'package:mood_tracker/widgets/buttons/action_button.dart';
-import 'package:mood_tracker/widgets/buttons/responsive_button.dart';
-import 'package:mood_tracker/widgets/custom_scaffold.dart';
-import 'package:mood_tracker/widgets/styled_icon.dart';
+import 'package:parchment/data/logger.dart';
+import 'package:parchment/screens/edit_entry_flow/edit_entry_wrapper.dart';
+import 'package:parchment/theme.dart';
+import 'package:parchment/utils/iterable_utils.dart';
+import 'package:parchment/utils/navigation_utils.dart';
+import 'package:parchment/widgets/buttons/action_button.dart';
+import 'package:parchment/widgets/buttons/responsive_button.dart';
+import 'package:parchment/widgets/custom_scaffold.dart';
+import 'package:parchment/widgets/styled_icon.dart';
 
 import 'components/calendar_view.dart';
 import 'components/timeline_view.dart';

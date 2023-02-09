@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:mood_tracker/theme.dart';
-import 'package:mood_tracker/utils/navigation_utils.dart';
-import 'package:mood_tracker/widgets/buttons/action_button.dart';
-import 'package:mood_tracker/widgets/modal_sheets/modal_sheet.dart';
+import 'package:parchment/theme.dart';
+import 'package:parchment/utils/navigation_utils.dart';
+import 'package:parchment/widgets/buttons/action_button.dart';
+import 'package:parchment/widgets/modal_sheets/modal_sheet.dart';
 
 class DateSelector extends StatefulWidget {
   final DateTime initialDateTime;

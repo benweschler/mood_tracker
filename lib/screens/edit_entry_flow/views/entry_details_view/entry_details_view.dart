@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:mood_tracker/models/mood_entry_model.dart';
-import 'package:mood_tracker/screens/edit_entry_flow/entry_template.dart';
-import 'package:mood_tracker/theme.dart';
-import 'package:mood_tracker/utils/date_time_utils.dart';
-import 'package:mood_tracker/utils/navigation_utils.dart';
-import 'package:mood_tracker/widgets/buttons/action_button.dart';
-import 'package:mood_tracker/widgets/buttons/responsive_button.dart';
-import 'package:mood_tracker/widgets/custom_scaffold.dart';
-import 'package:mood_tracker/widgets/platform_aware/platform_alert_dialog.dart';
-import 'package:mood_tracker/widgets/styled_icon.dart';
+import 'package:parchment/models/mood_entry_model.dart';
+import 'package:parchment/screens/edit_entry_flow/entry_template.dart';
+import 'package:parchment/theme.dart';
+import 'package:parchment/utils/date_time_utils.dart';
+import 'package:parchment/utils/navigation_utils.dart';
+import 'package:parchment/widgets/buttons/action_button.dart';
+import 'package:parchment/widgets/buttons/responsive_button.dart';
+import 'package:parchment/widgets/custom_scaffold.dart';
+import 'package:parchment/widgets/platform_aware/platform_alert_dialog.dart';
+import 'package:parchment/widgets/styled_icon.dart';
 import 'package:provider/provider.dart';
 
 import 'components/entry_details_form.dart';

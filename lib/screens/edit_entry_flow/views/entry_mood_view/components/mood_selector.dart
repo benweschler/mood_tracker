@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:mood_tracker/constants.dart';
-import 'package:mood_tracker/theme.dart';
-import 'package:mood_tracker/utils/color_utils.dart';
-import 'package:mood_tracker/widgets/custom_slider.dart';
-import 'package:mood_tracker/widgets/outlined_text.dart';
+import 'package:parchment/constants.dart';
+import 'package:parchment/theme.dart';
+import 'package:parchment/utils/color_utils.dart';
+import 'package:parchment/widgets/custom_slider.dart';
+import 'package:parchment/widgets/outlined_text.dart';
 
 class MoodSelector extends StatelessWidget {
   final int mood;

@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:mood_tracker/widgets/animations/transitions.dart';
+import 'package:parchment/widgets/animations/transitions.dart';
 
 class AnimatedSingleChildUpdate extends StatefulWidget {
   final Widget child;
