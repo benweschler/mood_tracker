@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:parchment/data/mood_entry.dart';
 import 'package:parchment/models/mood_entry_model.dart';
-import 'package:parchment/screens/home/home.dart';
 import 'package:parchment/styles.dart';
 import 'package:parchment/utils/date_time_utils.dart';
 import 'package:parchment/utils/emoji_text_span.dart';
-import 'package:parchment/utils/navigation_utils.dart';
 import 'package:parchment/widgets/buttons/responsive_button.dart';
 import 'package:parchment/widgets/styled_icon.dart';
 import 'package:provider/provider.dart';
@@ -117,10 +116,7 @@ class _ShowEventLogButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ResponsiveStrokeButton(
-      onTap: () => context.push(
-        const LoggerView(),
-        rootNavigator: true,
-      ),
+      onTap: () => context.goNamed("logger"),
       child: const StyledIcon(
         icon: Icons.timeline,
         color: AppColors.contrastColor,

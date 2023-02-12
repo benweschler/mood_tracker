@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:parchment/data/logger.dart';
-import 'package:parchment/screens/edit_entry_flow/edit_entry_wrapper.dart';
 import 'package:parchment/styles.dart';
 import 'package:parchment/utils/iterable_utils.dart';
-import 'package:parchment/utils/navigation_utils.dart';
 import 'package:parchment/widgets/buttons/action_button.dart';
 import 'package:parchment/widgets/buttons/responsive_button.dart';
 import 'package:parchment/widgets/custom_scaffold.dart';
@@ -51,10 +50,7 @@ class _EntryActionButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ActionButton(
       color: AppColors.contrastColor,
-      onTap: () => context.push(
-        const EditEntryWrapper(),
-        fullscreenDialog: true,
-      ),
+      onTap: () => context.pushNamed("edit_entry"),
       label: "Add Entry",
       icon: Icons.add_rounded,
     );
@@ -68,7 +64,7 @@ class LoggerView extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomScaffold(
       leading: ResponsiveStrokeButton(
-        onTap: () => context.pop(rootNavigator: true),
+        onTap: context.pop,
         child: const StyledIcon(
           icon: Icons.arrow_back_rounded,
           color: AppColors.contrastColor,

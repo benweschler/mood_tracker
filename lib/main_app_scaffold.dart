@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:parchment/styles.dart';
 
 const List<NavigationTab> _bottomNavigationTabs = [
   NavigationTab(
-    rootLocation: "/home",
+    rootLocation: "/",
     icon: Icons.home_max_rounded,
     label: "Home",
   ),
@@ -26,25 +27,30 @@ class MainAppScaffold extends StatefulWidget {
 
 class _MainAppScaffoldState extends State<MainAppScaffold> {
   void _onItemTapped(BuildContext context, String rootLocation) {
-    if (GoRouter.of(context).location.startsWith(rootLocation)) return;
+    final location = GoRouter.of(context).location;
+    if ((rootLocation != "/" || location == "/") &&
+        location.startsWith(rootLocation)) return;
     context.go(rootLocation);
   }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Expanded(child: Scaffold(body: widget.body)),
-        // The navigation bar does not have a Scaffold, and therefore does not
-        // have a DefaultTextStyle, as its ancestor, so provide one here.
-        DefaultTextStyle(
-          style: const TextStyle(),
-          child: CustomNavigationBar(
-            selectedRouteName: GoRouter.of(context).location,
-            onTabTap: (rootLocation) => _onItemTapped(context, rootLocation),
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: SystemUiOverlayStyle.dark,
+      child: Column(
+        children: [
+          Expanded(child: Scaffold(body: widget.body)),
+          // The navigation bar does not have a Scaffold, and therefore does not
+          // have a DefaultTextStyle, as its ancestor, so provide one here.
+          DefaultTextStyle(
+            style: const TextStyle(),
+            child: CustomNavigationBar(
+              selectedRouteName: GoRouter.of(context).location,
+              onTabTap: (rootLocation) => _onItemTapped(context, rootLocation),
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
@@ -76,7 +82,9 @@ class CustomNavigationBar extends StatelessWidget {
                   icon: tab.icon,
                   label: tab.label,
                   isActive: tab.rootLocation == selectedRouteName,
-                  onTap: () => onTabTap(tab.rootLocation),
+                  onTap: () {
+                    onTabTap(tab.rootLocation);
+                  },
                 ),
               )
           ],
@@ -102,9 +110,7 @@ class NavigationBarButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final color = isActive
-        ? Theme.of(context).colorScheme.secondary
-        : IconTheme.of(context).color!;
+    final color = isActive ? Colors.red : IconTheme.of(context).color!;
 
     return GestureDetector(
       behavior: HitTestBehavior.translucent,

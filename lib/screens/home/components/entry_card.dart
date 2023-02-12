@@ -1,11 +1,11 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:parchment/constants.dart';
 import 'package:parchment/data/mood_entry.dart';
 import 'package:parchment/models/mood_entry_model.dart';
-import 'package:parchment/screens/edit_entry_flow/edit_entry_wrapper.dart';
 import 'package:parchment/styles.dart';
 import 'package:parchment/utils/color_utils.dart';
 import 'package:parchment/utils/navigation_utils.dart';
@@ -163,10 +163,7 @@ class EntryContextMenu extends StatelessWidget {
           label: "Edit",
           onTap: () {
             context.pop();
-            context.push(
-              EditEntryWrapper(entry: entry),
-              fullscreenDialog: true,
-            );
+            context.pushNamed("edit_entry", extra: entry);
           },
         ),
         ContextMenuAction(
@@ -193,8 +190,7 @@ class EntryContextMenu extends StatelessWidget {
       context: context,
       dialog: const PlatformAlertDialog(
         title: "Delete Entry",
-        content:
-        "Are you sure you want to delete this entry? This cannot be undone.",
+        content: "Are you sure you want to delete this entry? This cannot be undone.",
         confirmText: "Delete",
         cancelText: "Cancel",
         isDestructiveAction: true,

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:parchment/screens/edit_entry_flow/entry_template.dart';
-import 'package:parchment/screens/edit_entry_flow/views/entry_details_view/entry_details_view.dart';
 import 'package:parchment/styles.dart';
-import 'package:parchment/utils/navigation_utils.dart';
 import 'package:parchment/widgets/buttons/action_button.dart';
 import 'package:parchment/widgets/buttons/responsive_button.dart';
 import 'package:parchment/widgets/custom_scaffold.dart';
@@ -20,14 +19,17 @@ class EntryMoodView extends StatelessWidget {
     return CustomScaffold(
       resizeToAvoidBottomInset: false,
       leading: ResponsiveStrokeButton(
-        onTap: () => context.pop(rootNavigator: true),
+        onTap: context.pop,
         child: const StyledIcon(
           icon: Icons.close_rounded,
           color: AppColors.contrastColor,
         ),
       ),
       bottomActionButton: ActionButton(
-        onTap: () => context.push(const EntryDetailsView()),
+        onTap: () => context.pushNamed(
+          "entry_details",
+          extra: context.read<EntryTemplate>().toEntry(),
+        ),
         color: AppColors.contrastColor,
         label: "Continue",
         icon: Icons.arrow_forward_rounded,

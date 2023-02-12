@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:parchment/models/mood_entry_model.dart';
 import 'package:parchment/screens/edit_entry_flow/entry_template.dart';
 import 'package:parchment/styles.dart';
 import 'package:parchment/utils/date_time_utils.dart';
-import 'package:parchment/utils/navigation_utils.dart';
 import 'package:parchment/widgets/buttons/action_button.dart';
 import 'package:parchment/widgets/buttons/responsive_button.dart';
 import 'package:parchment/widgets/custom_scaffold.dart';
@@ -63,7 +63,7 @@ class AddEntryButton extends StatelessWidget {
       onTap: () async {
         final template = context.read<EntryTemplate>();
         final model = context.read<MoodEntryModel>();
-        pop() => context.pop(rootNavigator: true);
+        final pop = context.pop;
 
         if(model.dates.contains(template.timestamp.toDate())) {
           final confirmation = await showPlatformDialog(
