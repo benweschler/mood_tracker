@@ -132,7 +132,7 @@ class CustomAppBar extends StatelessWidget {
       animation: flightDirection == HeroFlightDirection.push
           ? animation
           : ReverseAnimation(animation),
-      //TODO: these DefaultTextStyles are required because heroes do not provide a default text style. Check status of these issues:
+      //TODO: these DefaultTextStyles are required because heroes do not provide a default text style. Check status of this issue: https://github.com/flutter/flutter/issues/36220
       firstChild: DefaultTextStyle(
         style: DefaultTextStyle.of(fromHeroContext).style,
         child: fromHeroContext.widget,
