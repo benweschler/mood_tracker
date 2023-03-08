@@ -27,11 +27,7 @@ class EntryDetailsCard extends StatelessWidget {
         border: Border.all(color: AppColors.contrastColor, width: 1),
         borderRadius: Corners.medBorderRadius,
       ),
-      child: AnimatedSize(
-        duration: Durations.med,
-        curve: Curves.easeInOut,
-        child: _CardContent(entry),
-      ),
+      child: _CardContent(entry),
     );
   }
 }
@@ -111,9 +107,8 @@ class _CardContent extends StatelessWidget {
                 const SizedBox(height: Insets.lg),
                 Text(
                   entry.description,
-                  style: TextStyles.title.copyWith(
-                    fontWeight: FontWeight.normal,
-                  ),
+                  style:
+                      TextStyles.title.copyWith(fontWeight: FontWeight.normal),
                 ),
               ]
             ],
@@ -168,7 +163,7 @@ class EntryContextMenu extends StatelessWidget {
           label: "Edit",
           onTap: () {
             Navigator.of(context).pop();
-            GoRouterHelper(context).pushNamed("edit_entry", extra: entry);
+            GoRouterHelper(context).pushNamed("edit-entry", extra: entry);
           },
         ),
         ContextMenuAction(

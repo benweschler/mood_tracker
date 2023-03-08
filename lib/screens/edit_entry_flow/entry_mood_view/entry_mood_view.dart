@@ -4,7 +4,7 @@ import 'package:parchment/screens/edit_entry_flow/entry_details_view/entry_detai
 import 'package:parchment/screens/edit_entry_flow/entry_template.dart';
 import 'package:parchment/styles.dart';
 import 'package:parchment/widgets/buttons/action_button.dart';
-import 'package:parchment/widgets/buttons/responsive_button.dart';
+import 'package:parchment/widgets/buttons/responsive_buttons.dart';
 import 'package:parchment/widgets/custom_scaffold.dart';
 import 'package:parchment/widgets/styled_icon.dart';
 import 'package:provider/provider.dart';

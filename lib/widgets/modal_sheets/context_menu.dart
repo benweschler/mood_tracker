@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:parchment/styles.dart';
 import 'package:parchment/utils/iterable_utils.dart';
-import 'package:parchment/widgets/buttons/responsive_button.dart';
+import 'package:parchment/widgets/buttons/responsive_buttons.dart';
 
 import 'modal_sheet.dart';
 

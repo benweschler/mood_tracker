@@ -49,6 +49,7 @@ class TimelineView extends StatelessWidget {
     final DateTime? previousDate = index > 0 ? dates[index - 1] : null;
 
     if (previousDate == null || previousDate.month != date.month) {
+      //TODO: add year to heading if not current year.
       children.add(Text(
         "${DateFormat.MMMM().format(date)} ",
         style: TextStyles.heading.copyWith(fontWeight: FontWeight.bold),

@@ -35,9 +35,6 @@ class CustomScaffold extends StatelessWidget {
       drawer: drawer,
       body: SafeArea(
         bottom: false,
-        minimum: addBorderInsets
-            ? const EdgeInsets.symmetric(horizontal: Insets.offset)
-            : EdgeInsets.zero,
         child: Column(
           children: [
             if (leading != null || center != null || trailing != null)
@@ -47,23 +44,28 @@ class CustomScaffold extends StatelessWidget {
                 trailing: trailing,
               ),
             Expanded(
-              child: Stack(
-                fit: StackFit.expand,
-                children: [
-                  child,
-                  if (bottomActionButton != null)
-                    Positioned(
-                      // The bottom action button should always be padded, so if
-                      // the entire body of the scaffold isn't padded, add
-                      // padding to the action button here.
-                      left:
-                          Insets.offset + (addBorderInsets ? 0 : Insets.offset),
-                      right:
-                          Insets.offset + (addBorderInsets ? 0 : Insets.offset),
-                      bottom: Insets.offset,
-                      child: SafeArea(child: bottomActionButton!),
-                    ),
-                ],
+              child: Padding(
+                padding: addBorderInsets
+                    ? const EdgeInsets.symmetric(horizontal: Insets.offset)
+                    : EdgeInsets.zero,
+                child: Stack(
+                  fit: StackFit.expand,
+                  children: [
+                    child,
+                    if (bottomActionButton != null)
+                      Positioned(
+                        // The bottom action button should always be padded, so if
+                        // the entire body of the scaffold isn't padded, add
+                        // padding to the action button here.
+                        left: Insets.offset +
+                            (addBorderInsets ? 0 : Insets.offset),
+                        right: Insets.offset +
+                            (addBorderInsets ? 0 : Insets.offset),
+                        bottom: Insets.offset,
+                        child: SafeArea(child: bottomActionButton!),
+                      ),
+                  ],
+                ),
               ),
             ),
           ],
@@ -130,8 +132,15 @@ class CustomAppBar extends StatelessWidget {
       animation: flightDirection == HeroFlightDirection.push
           ? animation
           : ReverseAnimation(animation),
-      firstChild: fromHeroContext.widget,
-      secondChild: toHeroContext.widget,
+      //TODO: these DefaultTextStyles are required because heroes do not provide a default text style. Check status of these issues:
+      firstChild: DefaultTextStyle(
+        style: DefaultTextStyle.of(fromHeroContext).style,
+        child: fromHeroContext.widget,
+      ),
+      secondChild: DefaultTextStyle(
+        style: DefaultTextStyle.of(toHeroContext).style,
+        child: toHeroContext.widget,
+      ),
     );
   }
 }

@@ -29,6 +29,10 @@ abstract class Durations {
 }
 
 abstract class Corners {
+  static const double sm = 3;
+  static const Radius smRadius = Radius.circular(sm);
+  static const BorderRadius smBorderRadius = BorderRadius.all(smRadius);
+
   static const double med = 10;
   static const Radius medRadius = Radius.circular(med);
   static const BorderRadius medBorderRadius = BorderRadius.all(medRadius);

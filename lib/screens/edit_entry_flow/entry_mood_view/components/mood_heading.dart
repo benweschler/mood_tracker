@@ -5,7 +5,7 @@ import 'package:parchment/styles.dart';
 import 'package:parchment/utils/date_time_utils.dart';
 import 'package:parchment/utils/navigator_utils.dart';
 import 'package:parchment/widgets/animations/implicit.dart';
-import 'package:parchment/widgets/buttons/responsive_button.dart';
+import 'package:parchment/widgets/buttons/responsive_buttons.dart';
 import 'package:provider/provider.dart';
 
 import 'date_selector.dart';
@@ -36,7 +36,6 @@ class MoodHeading extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(Insets.sm),
             child: AnimatedSingleChildUpdate(
-              key: UniqueKey(),
               childKey: ValueKey(_buildDateText(isTimestampToday)),
               duration: Durations.med,
               child: Row(

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:parchment/data/logger.dart';
 import 'package:parchment/styles.dart';
 import 'package:parchment/utils/iterable_utils.dart';
-import 'package:parchment/widgets/buttons/responsive_button.dart';
+import 'package:parchment/widgets/buttons/responsive_buttons.dart';
 import 'package:parchment/widgets/custom_scaffold.dart';
 import 'package:go_router/go_router.dart';
 import 'package:parchment/widgets/styled_icon.dart';

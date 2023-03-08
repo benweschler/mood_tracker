@@ -5,7 +5,7 @@ import 'package:parchment/screens/edit_entry_flow/entry_template.dart';
 import 'package:parchment/styles.dart';
 import 'package:parchment/utils/date_time_utils.dart';
 import 'package:parchment/widgets/buttons/action_button.dart';
-import 'package:parchment/widgets/buttons/responsive_button.dart';
+import 'package:parchment/widgets/buttons/responsive_buttons.dart';
 import 'package:parchment/widgets/custom_scaffold.dart';
 import 'package:parchment/widgets/platform_aware/platform_alert_dialog.dart';
 import 'package:parchment/widgets/styled_icon.dart';

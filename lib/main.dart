@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:parchment/bootstrapper.dart';
 import 'package:parchment/router.dart';
 
@@ -23,10 +24,13 @@ class ParchmentApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      theme: AppTheme.theme,
-      debugShowCheckedModeBanner: false,
-      routerConfig: AppRouter().appRouter,
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: SystemUiOverlayStyle.dark,
+      child: MaterialApp.router(
+        theme: AppTheme.theme,
+        debugShowCheckedModeBanner: false,
+        routerConfig: AppRouter().router,
+      ),
     );
   }
 }

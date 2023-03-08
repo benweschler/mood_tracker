@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:parchment/styles.dart';
 import 'package:parchment/widgets/animations/transitions.dart';
 import 'package:parchment/widgets/buttons/action_button.dart';
-import 'package:parchment/widgets/buttons/responsive_button.dart';
+import 'package:parchment/widgets/buttons/responsive_buttons.dart';
 import 'package:parchment/widgets/custom_scaffold.dart';
 
 import 'components/calendar_view.dart';
@@ -70,7 +70,7 @@ class _EntryActionButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ActionButton(
       color: AppColors.contrastColor,
-      onTap: () => context.pushNamed("edit-entry"),
+      onTap: () => context.goNamed("edit-entry"),
       label: "Add Entry",
       icon: Icons.add_rounded,
     );

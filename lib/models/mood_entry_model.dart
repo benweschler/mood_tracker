@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart' show Icons, Colors;
+import 'package:flutter/material.dart' show Icons;
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:parchment/constants.dart';
@@ -12,14 +12,12 @@ class MoodEntryModel extends ChangeNotifier {
   final Box<MoodEntry> _entryBox = Hive.box(Constants.entryBoxName);
   final Set<EntryTag> _entryTags = {
     const EntryTag(
-      label: "Tag 1",
-      icon: Icons.fiber_manual_record_sharp,
-      color: Colors.purple,
+      label: "You",
+      icon: Icons.person_rounded,
     ),
     const EntryTag(
-      label: "Tag 2",
-      icon: Icons.abc,
-      color: Colors.blue,
+      label: "Got This 😊",
+      icon: Icons.bed_rounded,
     ),
   };
 

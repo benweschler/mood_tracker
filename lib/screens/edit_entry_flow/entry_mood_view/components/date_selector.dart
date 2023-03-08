@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:go_router/go_router.dart';
 import 'package:parchment/styles.dart';
 import 'package:parchment/widgets/buttons/action_button.dart';
 import 'package:parchment/widgets/modal_sheets/modal_sheet.dart';
@@ -55,7 +54,7 @@ class _DateSelectorState extends State<DateSelector> {
                   child: ActionButton(
                     label: "Cancel",
                     color: AppColors.mutedColor,
-                    onTap: context.pop,
+                    onTap: Navigator.of(context).pop,
                   ),
                 ),
                 const SizedBox(width: Insets.med),
@@ -63,7 +62,7 @@ class _DateSelectorState extends State<DateSelector> {
                   child: ActionButton(
                     label: "Done",
                     color: AppColors.contrastColor,
-                    onTap: () => context.pop(_selectedDateTime),
+                    onTap: () => Navigator.of(context).pop(_selectedDateTime),
                   ),
                 ),
               ],
