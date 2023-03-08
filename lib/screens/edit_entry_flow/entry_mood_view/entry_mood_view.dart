@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:parchment/screens/edit_entry_flow/entry_details_view/entry_details_view.dart';
 import 'package:parchment/screens/edit_entry_flow/entry_template.dart';
 import 'package:parchment/styles.dart';
 import 'package:parchment/widgets/buttons/action_button.dart';
@@ -26,9 +27,8 @@ class EntryMoodView extends StatelessWidget {
         ),
       ),
       bottomActionButton: ActionButton(
-        onTap: () => context.pushNamed(
-          "entry_details",
-          extra: context.read<EntryTemplate>().toEntry(),
+        onTap: () => Navigator.of(context).push(
+          MaterialPageRoute(builder: (_) => const EntryDetailsView()),
         ),
         color: AppColors.contrastColor,
         label: "Continue",

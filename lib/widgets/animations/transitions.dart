@@ -33,3 +33,31 @@ class CrossFadeTransition extends AnimatedWidget {
     );
   }
 }
+
+/// Identical to [CrossFadeTransition], but take an explicit position rather
+/// than an animation of the position.
+class CrossFadeOpacity extends StatelessWidget {
+  final Widget firstChild;
+  final Widget secondChild;
+  final double position;
+
+  const CrossFadeOpacity({
+    Key? key,
+    required this.firstChild,
+    required this.secondChild,
+    required this.position,
+  }) : super(key: key);
+
+  double positionToOpacity(double position) {
+    if (position <= 0.5) return 1 - position * 2;
+    return 2 * position - 1;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Opacity(
+      opacity: positionToOpacity(position),
+      child: position <= 0.5 ? firstChild : secondChild,
+    );
+  }
+}

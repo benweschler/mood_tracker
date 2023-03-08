@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:parchment/data/mood_entry.dart';
 import 'package:parchment/models/mood_entry_model.dart';
 import 'package:parchment/styles.dart';
 import 'package:parchment/utils/date_time_utils.dart';
 import 'package:parchment/utils/emoji_text_span.dart';
-import 'package:parchment/widgets/buttons/responsive_button.dart';
-import 'package:parchment/widgets/styled_icon.dart';
 import 'package:provider/provider.dart';
 
 import 'entry_card.dart';
@@ -52,7 +49,10 @@ class TimelineView extends StatelessWidget {
     final DateTime? previousDate = index > 0 ? dates[index - 1] : null;
 
     if (previousDate == null || previousDate.month != date.month) {
-      children.add(_buildMonthHeading(date));
+      children.add(Text(
+        "${DateFormat.MMMM().format(date)} ",
+        style: TextStyles.heading.copyWith(fontWeight: FontWeight.bold),
+      ));
     } else if (previousDate.isSameDay(date.copyWith(day: date.day - 1))) {
       children.add(Center(
         child: Text(
@@ -65,28 +65,10 @@ class TimelineView extends StatelessWidget {
     children.add(EntryDetailsCard(getEntry(date)!));
 
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: children
           .expand((element) => [element, const SizedBox(height: Insets.med)])
           .toList(),
-    );
-  }
-
-  Widget _buildMonthHeading(DateTime date) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text.rich(TextSpan(children: [
-          TextSpan(
-            text: "${DateFormat.MMMM().format(date)} ",
-            style: TextStyles.heading.copyWith(fontWeight: FontWeight.bold),
-          ),
-          TextSpan(
-            text: DateFormat.y().format(date),
-            style: TextStyles.heading.copyWith(color: AppColors.mutedColor),
-          ),
-        ])),
-        const _ShowEventLogButton(),
-      ],
     );
   }
 
@@ -105,21 +87,6 @@ class TimelineView extends StatelessWidget {
           ),
         ]),
         textAlign: TextAlign.center,
-      ),
-    );
-  }
-}
-
-class _ShowEventLogButton extends StatelessWidget {
-  const _ShowEventLogButton({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return ResponsiveStrokeButton(
-      onTap: () => context.goNamed("logger"),
-      child: const StyledIcon(
-        icon: Icons.timeline,
-        color: AppColors.contrastColor,
       ),
     );
   }

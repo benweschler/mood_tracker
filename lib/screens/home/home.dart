@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:parchment/data/logger.dart';
 import 'package:parchment/styles.dart';
-import 'package:parchment/utils/iterable_utils.dart';
+import 'package:parchment/widgets/animations/transitions.dart';
 import 'package:parchment/widgets/buttons/action_button.dart';
 import 'package:parchment/widgets/buttons/responsive_button.dart';
 import 'package:parchment/widgets/custom_scaffold.dart';
-import 'package:parchment/widgets/styled_icon.dart';
 
 import 'components/calendar_view.dart';
 import 'components/timeline_view.dart';
@@ -20,16 +18,38 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final _controller = PageController();
+  double _page = 0;
+
+  @override
+  void initState() {
+    _controller.addListener(updatePage);
+    super.initState();
+  }
 
   @override
   void dispose() {
+    _controller.removeListener(updatePage);
     _controller.dispose();
     super.dispose();
   }
 
+  /// Updates [_page] with the current page.
+  ///
+  /// Only fires when the controller is updated to avoid accessing the
+  /// controller before the PageView is built.
+  void updatePage() => setState(() => _page = _controller.page!);
+
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
+      center: CenterHeading(page: _page),
+      trailing: ResponsiveStrokeButton(
+        onTap: () => context.pushNamed("settings"),
+        child: const Icon(
+          Icons.settings_rounded,
+          color: AppColors.contrastColor,
+        ),
+      ),
       bottomActionButton: const _EntryActionButton(),
       addBorderInsets: false,
       child: PageView(
@@ -50,37 +70,27 @@ class _EntryActionButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ActionButton(
       color: AppColors.contrastColor,
-      onTap: () => context.pushNamed("edit_entry"),
+      onTap: () => context.pushNamed("edit-entry"),
       label: "Add Entry",
       icon: Icons.add_rounded,
     );
   }
 }
 
-class LoggerView extends StatelessWidget {
-  const LoggerView({Key? key}) : super(key: key);
+class CenterHeading extends StatelessWidget {
+  final double page;
+
+  const CenterHeading({
+    Key? key,
+    required this.page,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return CustomScaffold(
-      leading: ResponsiveStrokeButton(
-        onTap: context.pop,
-        child: const StyledIcon(
-          icon: Icons.arrow_back_rounded,
-          color: AppColors.contrastColor,
-        ),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text("Event Log", style: TextStyles.heading),
-          const SizedBox(height: Insets.lg),
-          ...Logger.dump
-              .map<Widget>((log) => Text(log))
-              .separate(const SizedBox(height: Insets.med))
-              .toList()
-        ],
-      ),
+    return CrossFadeOpacity(
+      firstChild: const Text("Mood Timeline", style: TextStyles.title),
+      secondChild: const Text("Calendar", style: TextStyles.title),
+      position: page,
     );
   }
 }

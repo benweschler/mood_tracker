@@ -8,7 +8,7 @@ import 'package:parchment/data/mood_entry.dart';
 import 'package:parchment/models/mood_entry_model.dart';
 import 'package:parchment/styles.dart';
 import 'package:parchment/utils/color_utils.dart';
-import 'package:parchment/utils/navigation_utils.dart';
+import 'package:parchment/utils/navigator_utils.dart';
 import 'package:parchment/widgets/modal_sheets/context_menu.dart';
 import 'package:parchment/widgets/platform_aware/platform_alert_dialog.dart';
 import 'package:provider/provider.dart';
@@ -20,31 +20,17 @@ class EntryDetailsCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => context.showModal(EntryContextMenu(entry)),
-      child: Container(
-        padding: const EdgeInsets.all(Insets.med),
-        decoration: BoxDecoration(
-          color: colorFromMood(entry.mood),
-          border: Border.all(color: AppColors.contrastColor, width: 1),
-          borderRadius: Corners.medBorderRadius,
-        ),
-        child: Stack(
-          children: [
-            _CardContent(entry),
-            Positioned(
-              top: 0,
-              right: 0,
-              child: Transform.rotate(
-                angle: pi / 2,
-                child: const Icon(
-                  Icons.chevron_right_rounded,
-                  color: AppColors.mutedColor,
-                ),
-              ),
-            ),
-          ],
-        ),
+    return Container(
+      padding: const EdgeInsets.all(Insets.med),
+      decoration: BoxDecoration(
+        color: colorFromMood(entry.mood),
+        border: Border.all(color: AppColors.contrastColor, width: 1),
+        borderRadius: Corners.medBorderRadius,
+      ),
+      child: AnimatedSize(
+        duration: Durations.med,
+        curve: Curves.easeInOut,
+        child: _CardContent(entry),
       ),
     );
   }
@@ -82,9 +68,28 @@ class _CardContent extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                DateFormat.MMMMEEEEd().format(entry.timestamp).toUpperCase(),
-                style: TextStyles.body2.copyWith(color: AppColors.mutedColor),
+              Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      DateFormat.MMMMEEEEd()
+                          .format(entry.timestamp)
+                          .toUpperCase(),
+                      style: TextStyles.body2
+                          .copyWith(color: AppColors.mutedColor),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () => context.showModal(EntryContextMenu(entry)),
+                    child: Transform.rotate(
+                      angle: pi / 2,
+                      child: const Icon(
+                        Icons.chevron_right_rounded,
+                        color: AppColors.mutedColor,
+                      ),
+                    ),
+                  )
+                ],
               ),
               Text(
                 DateFormat.jm().format(entry.timestamp).toUpperCase(),
@@ -162,8 +167,8 @@ class EntryContextMenu extends StatelessWidget {
           icon: Icons.edit_rounded,
           label: "Edit",
           onTap: () {
-            context.pop();
-            context.pushNamed("edit_entry", extra: entry);
+            Navigator.of(context).pop();
+            GoRouterHelper(context).pushNamed("edit_entry", extra: entry);
           },
         ),
         ContextMenuAction(
@@ -174,7 +179,7 @@ class EntryContextMenu extends StatelessWidget {
         ContextMenuAction(
           icon: Icons.close_rounded,
           label: "Close",
-          onTap: context.pop,
+          onTap: Navigator.of(context).pop,
         ),
       ],
     );
@@ -183,14 +188,15 @@ class EntryContextMenu extends StatelessWidget {
   void onAttemptDelete(BuildContext context) async {
     deleteEntry() {
       context.read<MoodEntryModel>().removeEntry(entry);
-      context.pop();
+      Navigator.of(context).pop();
     }
 
     final bool confirmation = await showPlatformDialog(
       context: context,
       dialog: const PlatformAlertDialog(
         title: "Delete Entry",
-        content: "Are you sure you want to delete this entry? This cannot be undone.",
+        content:
+            "Are you sure you want to delete this entry? This cannot be undone.",
         confirmText: "Delete",
         cancelText: "Cancel",
         isDestructiveAction: true,

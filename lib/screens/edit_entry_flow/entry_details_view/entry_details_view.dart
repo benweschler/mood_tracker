@@ -20,7 +20,7 @@ class EntryDetailsView extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomScaffold(
       leading: ResponsiveStrokeButton(
-        onTap: context.pop,
+        onTap: Navigator.of(context).pop,
         child: const StyledIcon(
           icon: Icons.arrow_back,
           color: AppColors.contrastColor,
@@ -63,7 +63,7 @@ class AddEntryButton extends StatelessWidget {
       onTap: () async {
         final template = context.read<EntryTemplate>();
         final model = context.read<MoodEntryModel>();
-        final pop = context.pop;
+        final pop = GoRouterHelper(context).pop;
 
         if(model.dates.contains(template.timestamp.toDate())) {
           final confirmation = await showPlatformDialog(

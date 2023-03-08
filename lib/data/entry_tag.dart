@@ -10,4 +10,10 @@ class EntryTag {
     required this.icon,
     required this.color,
   });
+
+  @override
+  bool operator ==(Object other) => other is EntryTag && label == other.label;
+
+  @override
+  int get hashCode => label.hashCode;
 }

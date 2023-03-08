@@ -1,22 +1,21 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:parchment/screens/edit_entry_flow/edit_entry_wrapper.dart';
-import 'package:parchment/screens/edit_entry_flow/entry_details_view/entry_details_view.dart';
-import 'package:parchment/screens/edit_entry_flow/entry_mood_view/entry_mood_view.dart';
 import 'package:parchment/screens/home/home.dart';
+import 'package:parchment/screens/logger.dart';
 import 'package:parchment/screens/settings.dart';
 
-import 'data/mood_entry.dart';
 import 'main_app_scaffold.dart';
 
 class AppRouter {
-  // Private navigators
   final _rootNavigatorKey = GlobalKey<NavigatorState>();
   final _shellNavigatorKey = GlobalKey<NavigatorState>();
 
   GoRouter get appRouter => GoRouter(
         initialLocation: "/",
         navigatorKey: _rootNavigatorKey,
+        observers: [HeroController()],
         routes: [
           ShellRoute(
             navigatorKey: _shellNavigatorKey,
@@ -24,44 +23,32 @@ class AppRouter {
             routes: [
               GoRoute(
                 path: "/",
+                name: "home",
                 pageBuilder: (context, state) => const NoTransitionPage(
                   child: HomeScreen(),
                 ),
                 routes: [
                   GoRoute(
-                    name: "edit_entry",
-                    path: "edit_entry",
-                    parentNavigatorKey: _rootNavigatorKey,
-                    pageBuilder: (context, state) => MaterialPage(
-                      child: EditEntryWrapper(
-                        entry: state.extra as MoodEntry?,
-                        child: const EntryMoodView(),
-                      ),
+                    path: "edit-entry",
+                    name: "edit-entry",
+                    pageBuilder: (context, state) => const CupertinoPage(
+                      child: EditEntryWrapper(),
                       fullscreenDialog: true,
                     ),
                   ),
                   GoRoute(
-                    name: "entry_details",
-                    path: "entry_details",
-                    parentNavigatorKey: _rootNavigatorKey,
-                    builder: (context, state) => EditEntryWrapper(
-                      entry: state.extra as MoodEntry?,
-                      child: const EntryDetailsView(),
-                    ),
+                    path: "settings",
+                    name: "settings",
+                    builder: (context, state) => const SettingsScreen(),
+                    routes: [
+                      GoRoute(
+                        path: "logger",
+                        name: "logger",
+                        builder: (context, state) => const LoggerView(),
+                      ),
+                    ],
                   ),
                 ],
-              ),
-              GoRoute(
-                name: "/settings",
-                path: "/settings",
-                pageBuilder: (context, state) => const NoTransitionPage(
-                  child: SettingsScreen(),
-                ),
-              ),
-              GoRoute(
-                name: "/logger",
-                path: "/logger",
-                builder: (context, state) => const LoggerView(),
               ),
             ],
           ),
