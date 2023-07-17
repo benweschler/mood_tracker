@@ -15,12 +15,14 @@ void main() async {
 
   runApp(ChangeNotifierProvider<MoodEntryModel>(
     create: (_) => MoodEntryModel(),
-    child: const ParchmentApp(),
+    child: ParchmentApp(AppRouter().router),
   ));
 }
 
 class ParchmentApp extends StatelessWidget {
-  const ParchmentApp({super.key});
+  final RouterConfig<Object> router;
+
+  const ParchmentApp(this.router, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +31,7 @@ class ParchmentApp extends StatelessWidget {
       child: MaterialApp.router(
         theme: AppTheme.theme,
         debugShowCheckedModeBanner: false,
-        routerConfig: AppRouter().router,
+        routerConfig: router,
       ),
     );
   }
