@@ -14,12 +14,9 @@ class ContextMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     return ModalSheet(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-      child: Padding(
-        padding: EdgeInsets.zero,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[...actions].separate(const Divider()).toList(),
-        ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[...actions].separate(const Divider()).toList(),
       ),
     );
   }

@@ -6,7 +6,10 @@ class CustomTextField extends StatelessWidget {
   final FocusNode? focusNode;
   final TextInputType? keyboardType;
   final String? hintText;
-  final bool allowMultiline;
+
+  /// Whether the text field will wrap multiple lines or scroll along a single
+  /// line.
+  final bool multiline;
 
   const CustomTextField({
     Key? key,
@@ -14,7 +17,7 @@ class CustomTextField extends StatelessWidget {
     this.focusNode,
     this.keyboardType,
     this.hintText,
-    this.allowMultiline = true,
+    this.multiline = false,
   }) : super(key: key);
 
   @override
@@ -26,7 +29,7 @@ class CustomTextField extends StatelessWidget {
       focusNode: focusNode,
       cursorColor: AppColors.contrastColor,
       keyboardType: keyboardType,
-      maxLines: allowMultiline ? null : 1,
+      maxLines: multiline ? null : 1,
       decoration: InputDecoration(
         hintText: hintText,
         contentPadding: const EdgeInsets.all(Insets.med),

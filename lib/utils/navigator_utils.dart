@@ -6,7 +6,7 @@ typedef AppRoute<T> = CupertinoPageRoute<T>;
 extension NavigatorUtils on BuildContext {
   Future<T?> showModal<T>(Widget sheet) => showModalBottomSheet<T>(
     context: this,
-    // Remove shadow
+    // Removes shadow
     elevation: 0,
     backgroundColor: Colors.transparent,
     builder: (_) => sheet,

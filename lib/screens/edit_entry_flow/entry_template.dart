@@ -12,7 +12,19 @@ class EntryTemplate extends ChangeNotifier {
       : _mood = entry?.mood ?? 5,
         _sleep = entry?.sleep ?? Constants.sleepGoal,
         _description = entry?.description ?? "",
-        _timestamp = entry?.timestamp ?? DateTime.now();
+        _timestamp = entry?.timestamp ??
+            // If it's after 12am and before 6am, assume the user wants to
+            // create an entry for the previous day.
+            //TODO: this should be a question you ask the user and this implementation can probably be cleaned up.
+            (DateTime.now().hour < 6
+                ? DateTime(
+                    DateTime.now().year,
+                    DateTime.now().month,
+                    DateTime.now().day - 1,
+                    23,
+                    59,
+                  )
+                : DateTime.now());
 
   MoodEntry toEntry() => MoodEntry(
         mood: _mood,

@@ -5,6 +5,8 @@ import 'package:parchment/screens/home/home.dart';
 import 'package:parchment/screens/logger.dart';
 import 'package:parchment/screens/settings.dart';
 
+import 'data/mood_entry.dart';
+
 class AppRouter {
   GoRouter get router => GoRouter(
         routes: [
@@ -18,8 +20,8 @@ class AppRouter {
               GoRoute(
                 path: "edit-entry",
                 name: "edit-entry",
-                pageBuilder: (context, state) => const CupertinoPage(
-                  child: EditEntryWrapper(),
+                pageBuilder: (context, state) => CupertinoPage(
+                  child: EditEntryWrapper(entry: state.extra as MoodEntry?),
                   fullscreenDialog: true,
                 ),
               ),

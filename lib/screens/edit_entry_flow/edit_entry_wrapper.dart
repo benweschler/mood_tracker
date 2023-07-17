@@ -9,10 +9,7 @@ import 'entry_template.dart';
 class EditEntryWrapper extends StatelessWidget {
   final MoodEntry? entry;
 
-  const EditEntryWrapper({
-    Key? key,
-    this.entry,
-  }) : super(key: key);
+  const EditEntryWrapper({Key? key, this.entry}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -61,6 +61,9 @@ class ResponsiveStrokeButton extends StatefulWidget {
 
 class _ResponsiveStrokeButtonState extends State<ResponsiveStrokeButton>
     with SingleTickerProviderStateMixin {
+  // A value of 1 represents the unpressed state with full opacity. This is to
+  // ensure that activating the animation corresponds to running the controller
+  // forward.
   late final _controller = AnimationController(
     duration: Durations.short,
     value: 1,
@@ -78,6 +81,8 @@ class _ResponsiveStrokeButtonState extends State<ResponsiveStrokeButton>
     return AnimatedBuilder(
       animation: _controller,
       builder: (_, __) => Opacity(
+        // Map a controller value of 1 to an opacity of 1 and a controller value
+        // of 0 to an opacity of 0.5.
         opacity: _controller.value / 2 + 0.5,
         child: _BaseResponsiveButton(
           onPressed: (isPressed) =>

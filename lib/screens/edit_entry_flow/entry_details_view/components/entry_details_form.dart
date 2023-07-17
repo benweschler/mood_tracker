@@ -15,7 +15,7 @@ class EntryDetailsForm extends StatefulWidget {
 class _EntryDetailsFormState extends State<EntryDetailsForm> {
   late final _template = context.read<EntryTemplate>();
   late final _descriptionController =
-  TextEditingController(text: _template.description);
+      TextEditingController(text: _template.description);
 
   @override
   void initState() {
@@ -69,7 +69,10 @@ class _EntryDetailsFormState extends State<EntryDetailsForm> {
           style: TextStyles.title.copyWith(fontWeight: FontWeight.w500),
         ),
         const SizedBox(height: Insets.sm),
-        CustomTextField(controller: _descriptionController),
+        CustomTextField(
+          controller: _descriptionController,
+          multiline: true,
+        ),
       ],
     );
   }

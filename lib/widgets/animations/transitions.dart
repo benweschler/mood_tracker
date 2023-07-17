@@ -35,7 +35,7 @@ class CrossFadeTransition extends AnimatedWidget {
   }
 }
 
-/// Identical to [CrossFadeTransition], but take an explicit position rather
+/// Identical to [CrossFadeTransition], but takes an explicit position rather
 /// than an animation of the position.
 class CrossFadeOpacity extends StatelessWidget {
   final Widget firstChild;
